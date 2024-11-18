@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
-    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
@@ -77,10 +76,6 @@ dependencies {
     implementation(libs.accompanist.permissions)
 
 
-    // Hilt
-    implementation (libs.hilt.android)
-    kapt(libs.hilt.compiler)
-
     //ViewModel compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -94,13 +89,6 @@ dependencies {
 
     //Flow compose
     implementation(libs.androidx.lifecycle.runtime.compose)
-
-    //networking
-    implementation(libs.gson)
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
 
     //Koin
     implementation(libs.koin.android)

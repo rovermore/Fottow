@@ -1,6 +1,8 @@
 package com.fottow.fottow.di
 
 import com.fottow.fottow.FileResolver
+import com.fottow.fottow.data.base.APIErrorMapper
+import com.fottow.fottow.data.base.CallExecutor
 import com.fottow.fottow.data.photo.PhotoNetworkDatasource
 import com.fottow.fottow.data.photo.PhotoRepositoryImpl
 import com.fottow.fottow.data.base.FottowKtorClient
@@ -20,12 +22,16 @@ val appModule = module {
 
     factory { UploadPhotoUseCase(get()) }
 
-    single<PhotoRepository> { PhotoRepositoryImpl(get()) }
-
-    factory { PhotoNetworkDatasource(get()) }
-
     single { FottowKtorClient() }
 
     factory { NetworkExceptionsMapper() }
+
+    factory { APIErrorMapper() }
+
+    factory { CallExecutor(get()) }
+
+    factory { PhotoNetworkDatasource(get(), get()) }
+
+    single<PhotoRepository> { PhotoRepositoryImpl(get(), get()) }
 
 }
