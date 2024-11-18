@@ -1,4 +1,4 @@
-package com.fottow.fottow.presentation
+package com.fottow.fottow.presentation.main
 
 import android.Manifest
 import android.content.ContentValues

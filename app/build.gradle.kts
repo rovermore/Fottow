@@ -107,4 +107,11 @@ dependencies {
     implementation(libs.koin.androidx.workmanager)
     implementation(libs.koin.androidx.compose)
 
+    //Ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.client.logging)
+
 }
