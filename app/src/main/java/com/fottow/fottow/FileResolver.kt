@@ -14,13 +14,12 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import javax.inject.Inject
 
-class FileResolver @Inject constructor(val context: Context) {
+class FileResolver(private val context: Context) {
 
     fun buildFile(body: ResponseBody, fileName: String, extension: String): File? {
         return try {
-            val file = File(FottowApplication.app.getExternalFilesDir(null).toString() + File.separator + fileName + extension)
+            val file = File(context.getExternalFilesDir(null).toString() + File.separator + fileName + extension)
             var inputStream: InputStream? = null
             var outputStream: OutputStream? = null
             try {

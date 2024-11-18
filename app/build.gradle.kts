@@ -101,4 +101,10 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+
+    //Koin
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.workmanager)
+    implementation(libs.koin.androidx.compose)
+
 }

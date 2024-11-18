@@ -6,10 +6,10 @@ import com.fottow.fottow.FileResolver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val fileResolver: FileResolver
 ): ViewModel() {
+
 
     fun selectImage(uri: Uri?) {
         uri?.let {

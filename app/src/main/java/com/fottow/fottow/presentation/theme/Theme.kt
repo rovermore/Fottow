@@ -2,15 +2,15 @@ package com.fottow.fottow.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import org.koin.compose.KoinContext
+import org.koin.core.context.KoinContext
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -36,7 +36,6 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     */
 )
-
 
 @Composable
 fun FottowTheme(

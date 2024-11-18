@@ -26,14 +26,14 @@ import com.fottow.fottow.presentation.theme.FottowTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.FTopBar
 import com.fottow.fottow.presentation.widgets.ScreenContainer
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = viewModel()
+    viewModel: MainViewModel = koinViewModel<MainViewModel>()
 ) {
     val context = LocalContext.current
 
