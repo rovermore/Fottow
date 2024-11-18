@@ -1,11 +1,18 @@
 package com.fottow.fottow.data.photo
 
+import com.fottow.fottow.data.base.APIErrorMapper
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Result
+import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.photo.repository.PhotoRepository
 
-class PhotoRepositoryImpl(): PhotoRepository {
-    override fun uploadPhoto(imagePath: String): Result<Boolean, Error> {
-        TODO("Not yet implemented")
+class PhotoRepositoryImpl(
+    private val photoNetworkDatasource: PhotoNetworkDatasource,
+    private val apiErrorMapper: APIErrorMapper
+): PhotoRepository {
+    override suspend fun uploadPhoto(imagePath: String): Result<UploadPhotoResponse, Error> {
+        return photoNetworkDatasource.uploadPhoto(imagePath).mapFailure {
+                apiErrorMapper.map(it)
+        }
     }
 }
