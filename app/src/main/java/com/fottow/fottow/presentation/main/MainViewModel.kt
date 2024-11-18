@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fottow.fottow.FileResolver
 import com.fottow.fottow.domain.base.map
+import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.base.then
 import com.fottow.fottow.domain.photo.usecase.UploadPhotoUseCase
 import kotlinx.coroutines.Dispatchers
@@ -17,11 +18,14 @@ class MainViewModel(
     private val updatePhotoUseCase: UploadPhotoUseCase
 ): ViewModel() {
 
-    private val _isLoading = MutableStateFlow(true)
+    private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> get() = _isLoading
 
-    private val _uploadSuccessful = MutableStateFlow(true)
+    private val _uploadSuccessful = MutableStateFlow(false)
     val uploadSuccessful: StateFlow<Boolean> get() = _uploadSuccessful
+
+    private val _onError = MutableStateFlow(false)
+    val onError: StateFlow<Boolean> get() = _onError
 
     fun selectImage(uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,6 +36,8 @@ class MainViewModel(
                     updatePhotoUseCase.uploadPhoto(imagePath)
                         .map {
                             _uploadSuccessful.value = true
+                        }.mapFailure {
+                            _onError.value = true
                         }.then {
                             _isLoading.value = false
                         }
@@ -42,6 +48,7 @@ class MainViewModel(
 
     fun dialogDismissed() {
         _uploadSuccessful.value = false
+        _onError.value = false
     }
 
 }

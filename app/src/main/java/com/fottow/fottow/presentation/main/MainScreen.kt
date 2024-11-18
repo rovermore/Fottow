@@ -47,6 +47,7 @@ fun MainScreen(
 ) {
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val updateSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
+    val onError by viewModel.onError.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
@@ -110,9 +111,11 @@ fun MainScreen(
         }
 
         if (updateSuccessful) {
-            FDialog { viewModel.dialogDismissed() }
+            FDialog("La foto se ha subido correctamente") { viewModel.dialogDismissed() }
         }
-
+        if (onError) {
+            FDialog("Error al subir la foto") { viewModel.dialogDismissed() }
+        }
         if (isLoading) {
             Loader()
         }
@@ -121,7 +124,10 @@ fun MainScreen(
 }
 
 @Composable
-fun FDialog(onDismissRequest: () -> Unit) {
+fun FDialog(
+    message: String,
+    onDismissRequest: () -> Unit
+    ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier
@@ -131,7 +137,7 @@ fun FDialog(onDismissRequest: () -> Unit) {
             shape = RoundedCornerShape(16.dp),
         ) {
             Text(
-                text = "Photo has been uploaded successfully",
+                text = message,
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentSize(Alignment.Center),
