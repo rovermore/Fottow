@@ -102,4 +102,7 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.logging)
 
+    //navigation compose
+    implementation(libs.androidx.navigation.compose)
+
 }

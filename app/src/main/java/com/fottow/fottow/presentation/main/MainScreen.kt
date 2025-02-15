@@ -26,12 +26,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.fottow.fottow.presentation.theme.AppTheme
-import com.fottow.fottow.presentation.theme.FottowTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.FTopBar
 import com.fottow.fottow.presentation.widgets.Loader
@@ -43,7 +42,8 @@ import org.koin.androidx.compose.koinViewModel
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = koinViewModel<MainViewModel>()
+    viewModel: MainViewModel = koinViewModel<MainViewModel>(),
+    navController: NavController
 ) {
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val updateSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
@@ -144,13 +144,5 @@ fun FDialog(
                 textAlign = TextAlign.Center,
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-    FottowTheme {
-        MainScreen()
     }
 }
