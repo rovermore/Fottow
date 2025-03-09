@@ -7,7 +7,7 @@ import com.fottow.fottow.FileResolver
 import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.base.then
-import com.fottow.fottow.domain.photo.usecase.UploadPhotoUseCase
+import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val fileResolver: FileResolver,
-    private val updatePhotoUseCase: UploadPhotoUseCase
+    private val updatePhotoUseCase: PhotoUseCase
 ): ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)

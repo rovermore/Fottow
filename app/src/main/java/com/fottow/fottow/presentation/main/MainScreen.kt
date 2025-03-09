@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.FTopBar
@@ -104,7 +105,17 @@ fun MainScreen(
                 },
             ) {
                 Text(
-                    text = "Go to Gallery",
+                    text = "Pick from device",
+                    style = Typography.titleLarge
+                )
+            }
+            OutlinedButton(
+                onClick = {
+                    navController.navigate(GalleryScreen)
+                },
+            ) {
+                Text(
+                    text = "My Pictures",
                     style = Typography.titleLarge
                 )
             }
