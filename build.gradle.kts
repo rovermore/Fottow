@@ -4,4 +4,5 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     kotlin("kapt") version "2.1.0"
     id("org.jetbrains.kotlin.plugin.compose") version "2.1.0" apply false
+    kotlin("jvm") version "2.1.0"
 }

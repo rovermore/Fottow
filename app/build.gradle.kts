@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     kotlin("kapt")
     id("org.jetbrains.kotlin.plugin.compose")
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 android {
@@ -102,5 +103,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.kotlin.reflect)
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
 
 }
