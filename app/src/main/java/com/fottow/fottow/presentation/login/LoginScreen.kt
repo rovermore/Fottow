@@ -62,7 +62,6 @@ fun LoginScreen(
         }
 
     ) {
-        if (error) ErrorView {  }
         if (login) navController.navigate(MainScreen)
         Column(
             modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
@@ -110,6 +109,8 @@ fun LoginScreen(
                     style = Typography.titleLarge
                 )
             }
+
+            if (error) ErrorView {  }
         }
     }
 

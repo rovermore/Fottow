@@ -1,11 +1,9 @@
 package com.fottow.fottow.presentation.widgets
 
-import android.content.Loader
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -14,9 +12,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalLayoutDirection
-import androidx.compose.ui.unit.dp
-import com.fottow.fottow.presentation.Action
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -25,9 +20,9 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 fun ScreenContainer(
     modifier: Modifier = Modifier,
     background: Color = MaterialTheme.colorScheme.background,
-    onRefresh: Action? = null,
-    topBar: @Composable Action = {},
-    bottomBar: @Composable Action = {},
+    onRefresh: (() -> Unit)? = null,
+    topBar: @Composable () -> Unit = {},
+    bottomBar: @Composable () -> Unit = {},
     isLoading: Boolean = false,
     content: @Composable (PaddingValues) -> Unit
 ) {

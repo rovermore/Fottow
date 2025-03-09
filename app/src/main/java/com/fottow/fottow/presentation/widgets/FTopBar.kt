@@ -25,14 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fottow.fottow.R
-import com.fottow.fottow.presentation.Action
 import com.fottow.fottow.presentation.theme.AppTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun FTopBar(
-    onCartClicked: Action = { },
+    onCartClicked: () -> Unit = { },
     hasNotifications: Boolean = false
 ) {
     TopAppBar(

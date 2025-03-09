@@ -62,10 +62,8 @@ fun RegisterScreen(
         }
 
     ) {
-        if (error) ErrorView {
-            viewModel.registerUser(email.text, password.text, nickName.text)
-        }
         if (register) navController.navigate(MainScreen)
+
         Column(
             modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
             verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
@@ -108,6 +106,10 @@ fun RegisterScreen(
                     text = "Sign up",
                     style = Typography.titleLarge
                 )
+            }
+
+            if (error) ErrorView {
+                viewModel.registerUser(email.text, password.text, nickName.text)
             }
         }
     }
