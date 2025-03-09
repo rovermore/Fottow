@@ -1,10 +1,10 @@
-package com.fottow.fottow.presentation.login
+package com.fottow.fottow.presentation.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
-import com.fottow.fottow.domain.user.usecase.LoginUseCase
+import com.fottow.fottow.domain.user.usecase.RegisterUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,24 +12,23 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class LoginViewModel(
-    private val loginUseCase: LoginUseCase
-): ViewModel() {
+class RegisterViewModel(
+    private val registerUseCase: RegisterUseCase
+): ViewModel(){
 
-    private var _login = MutableStateFlow<Boolean>(false)
-    val login: StateFlow<Boolean> get() = _login.asStateFlow()
+    private var _register = MutableStateFlow<Boolean>(false)
+    val register: StateFlow<Boolean> get() = _register.asStateFlow()
     private var _error = MutableStateFlow<Boolean>(false)
     val error: StateFlow<Boolean> get() = _error.asStateFlow()
 
-    fun logUser(userName: String, password: String) {
+    fun registerUser(email: String, password: String, nickName: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            loginUseCase.logUser(userName, password)
+            registerUseCase.registerUser(email, password, nickName)
                 .map {
-                    _login.update { true }
+                    _register.update { true }
                 }.mapFailure {
                     _error.update { true }
                 }
         }
     }
-
 }

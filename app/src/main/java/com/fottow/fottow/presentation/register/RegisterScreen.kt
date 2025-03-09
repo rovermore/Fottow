@@ -1,5 +1,4 @@
-package com.fottow.fottow.presentation.login
-
+package com.fottow.fottow.presentation.register
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,7 +28,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.navigation.MainScreen
-import com.fottow.fottow.presentation.navigation.RegisterScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.ErrorView
@@ -38,15 +36,17 @@ import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel<LoginViewModel>(),
+fun RegisterScreen(
+    viewModel: RegisterViewModel = koinViewModel<RegisterViewModel>(),
     navController: NavController
 ) {
-    val login by viewModel.login.collectAsStateWithLifecycle()
+
+    val register by viewModel.register.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
 
     var email by remember { mutableStateOf(TextFieldValue("")) }
     var password by remember { mutableStateOf(TextFieldValue("")) }
+    var nickName by remember { mutableStateOf(TextFieldValue("")) }
 
     ScreenContainer(
         topBar = { TopAppBar(
@@ -62,15 +62,25 @@ fun LoginScreen(
         }
 
     ) {
-        if (error) ErrorView {  }
-        if (login) navController.navigate(MainScreen)
+        if (error) ErrorView {
+            viewModel.registerUser(email.text, password.text, nickName.text)
+        }
+        if (register) navController.navigate(MainScreen)
         Column(
             modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
             verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text(text = "Iniciar Sesión", style = MaterialTheme.typography.headlineMedium)
+            Text(text = "Crea tu cuenta", style = MaterialTheme.typography.headlineMedium)
+
+            TextField(
+                value = nickName,
+                onValueChange = { nickName = it },
+                label = { Text("Nombre de usuario") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                modifier = Modifier.fillMaxWidth()
+            )
 
             TextField(
                 value = email,
@@ -91,26 +101,14 @@ fun LoginScreen(
 
             OutlinedButton(
                 onClick = {
-                    viewModel.logUser(email.text, password.text)
+                    viewModel.registerUser(email.text, password.text, nickName.text)
                 },
             ) {
                 Text(
-                    text = "Log in",
-                    style = Typography.titleLarge
-                )
-            }
-
-            OutlinedButton(
-                onClick = {
-                    navController.navigate(RegisterScreen)
-                },
-            ) {
-                Text(
-                    text = "Regístrate",
+                    text = "Sign up",
                     style = Typography.titleLarge
                 )
             }
         }
     }
-
 }
