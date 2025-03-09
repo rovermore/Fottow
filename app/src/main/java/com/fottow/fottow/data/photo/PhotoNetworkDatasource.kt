@@ -19,10 +19,11 @@ class PhotoNetworkDatasource(
         val file = File(imagePath)
         val call : suspend () -> HttpResponse = {
             client.getClient().submitFormWithBinaryData(
-                url = "www.test.url.com",
+                url = "https://778meigv57.execute-api.us-east-1.amazonaws.com/dev/images/upload",
                 formData = formData {
-                    append("image", file.readBytes(), Headers.build {
-                        append(HttpHeaders.ContentType, "image/*")
+                    append("file", file.readBytes(), Headers.build {
+                        append(HttpHeaders.Accept, "application/json")
+                        append(HttpHeaders.ContentType, "multipart/form-data")
                         append(HttpHeaders.ContentDisposition, "filename=${file.name}")
                     })
                 }

@@ -98,13 +98,14 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.auth)
 
     //navigation compose
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.kotlin.reflect)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+    implementation(libs.kotlinx.serialization.json)
 
 
 }

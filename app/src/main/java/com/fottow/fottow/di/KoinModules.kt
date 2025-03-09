@@ -36,7 +36,7 @@ val appModule = module {
 
     factory { RegisterUseCase(get()) }
 
-    single { FottowKtorClient() }
+    single { FottowKtorClient(get()) }
 
     factory { NetworkExceptionsMapper() }
 

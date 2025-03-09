@@ -1,7 +1,11 @@
 package com.fottow.fottow.data.base
 
+import com.fottow.fottow.data.user.UserLocalDatasource
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerTokens
+import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.ANDROID
 import io.ktor.client.plugins.logging.LogLevel
@@ -10,7 +14,9 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 
-class FottowKtorClient() {
+class FottowKtorClient(
+    private val userLocalDatasource: UserLocalDatasource
+) {
     fun getClient() =
         HttpClient(CIO) {
             install(ContentNegotiation) {
@@ -23,6 +29,16 @@ class FottowKtorClient() {
                     request.url.host.contains("ktor.io")
                 }
                 sanitizeHeader { header -> header == HttpHeaders.Authorization }
+            }
+            install(Auth) {
+                bearer {
+                    loadTokens {
+                        BearerTokens(
+                            accessToken = userLocalDatasource.getToken(),
+                            refreshToken = null
+                        )
+                    }
+                }
             }
         }
 }

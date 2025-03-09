@@ -13,6 +13,7 @@ espressoCore = "3.6.1"
 kotlinReflect = "2.1.10"
 kotlinxCoroutinesAndroid = "1.9.0"
 kotlinxCoroutinesCore = "1.9.0"
+kotlinxSerializationJson = "1.8.0"
 ktorClientCore = "3.0.1"
 lifecycleRuntimeCompose = "2.9.0-alpha11"
 lifecycleRuntimeKtx = "2.8.7"
@@ -50,6 +51,8 @@ koin-androidx-workmanager = { module = "io.insert-koin:koin-androidx-workmanager
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlinReflect" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktorClientCore" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCore" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
