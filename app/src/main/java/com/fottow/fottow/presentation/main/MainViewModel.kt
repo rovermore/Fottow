@@ -8,6 +8,7 @@ import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.base.then
 import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
+import com.fottow.fottow.domain.user.usecase.LoginUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val fileResolver: FileResolver,
-    private val updatePhotoUseCase: PhotoUseCase
+    private val updatePhotoUseCase: PhotoUseCase,
+    private val loginUseCase: LoginUseCase
 ): ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -26,6 +28,9 @@ class MainViewModel(
 
     private val _onError = MutableStateFlow(false)
     val onError: StateFlow<Boolean> get() = _onError
+
+    private val _onLogout = MutableStateFlow(false)
+    val onLogout: StateFlow<Boolean> get() = _onLogout
 
     fun selectImage(uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -49,6 +54,15 @@ class MainViewModel(
     fun dialogDismissed() {
         _uploadSuccessful.value = false
         _onError.value = false
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            loginUseCase.logout()
+                .map {
+                    _onLogout.value = true
+                }
+        }
     }
 
 }

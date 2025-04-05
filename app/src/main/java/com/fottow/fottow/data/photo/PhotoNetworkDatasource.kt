@@ -3,6 +3,7 @@ package com.fottow.fottow.data.photo
 import com.fottow.fottow.data.base.APIError
 import com.fottow.fottow.data.base.CallExecutor
 import com.fottow.fottow.data.base.FottowKtorClient
+import com.fottow.fottow.data.base.FottowURL
 import com.fottow.fottow.data.user.register.RegisterRequest
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.photo.model.FottowImage
@@ -29,7 +30,7 @@ class PhotoNetworkDatasource(
         val file = File(imagePath)
         val call : suspend () -> HttpResponse = {
             client.getClient().submitFormWithBinaryData(
-                url = "https://778meigv57.execute-api.us-east-1.amazonaws.com/dev/images/upload",
+                url = FottowURL.IMAGES_UPLOAD,
                 formData = formData {
                     append("file", file.readBytes(), Headers.build {
                         append(HttpHeaders.Accept, "application/json")
@@ -44,7 +45,7 @@ class PhotoNetworkDatasource(
 
     suspend fun getImages(): Result<FottowImageResponse, APIError> {
         val call : suspend () -> HttpResponse = {
-            client.getClient().request("https://778meigv57.execute-api.us-east-1.amazonaws.com/dev/images/images") {
+            client.getClient().request(FottowURL.IMAGES) {
                 method = HttpMethod.Get
                 contentType(ContentType.Application.Json)
                 headers {

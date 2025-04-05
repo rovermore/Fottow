@@ -1,8 +1,11 @@
 package com.fottow.fottow.data.user
 
 import com.fottow.fottow.data.base.APIErrorMapper
+import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.Error
+import com.fottow.fottow.domain.base.Failure
 import com.fottow.fottow.domain.base.Result
+import com.fottow.fottow.domain.base.Success
 import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.user.repository.UserRepository
@@ -30,6 +33,21 @@ class UserRepositoryImpl(
     ): Result<Boolean, Error> {
         return userNetworkDatasource.userRegister(user, password, nickName)
             .map { true }
+            .mapFailure {
+                apiErrorMapper.map(it)
+            }
+    }
+
+    override suspend fun isUserLogged(): Result<String, Error> {
+        return userLocalDatasource.getToken()
+    }
+
+    override suspend fun logout(): Result<Boolean, Error> {
+        return userNetworkDatasource.logout()
+            .map {
+                userLocalDatasource.deleteToken()
+                true
+            }
             .mapFailure {
                 apiErrorMapper.map(it)
             }

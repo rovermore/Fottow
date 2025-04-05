@@ -11,4 +11,12 @@ class LoginUseCase(
     suspend fun logUser(userName: String, password: String): Result<Boolean, Error> {
         return userRepository.logUser(userName, password)
     }
+
+    suspend fun isUserLogged(): Result<String, Error> {
+        return userRepository.isUserLogged()
+    }
+
+    suspend fun logout(): Result<Boolean, Error> {
+        return userRepository.logout()
+    }
 }

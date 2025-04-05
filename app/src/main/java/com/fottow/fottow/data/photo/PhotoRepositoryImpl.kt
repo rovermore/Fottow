@@ -1,7 +1,6 @@
 package com.fottow.fottow.data.photo
 
 import com.fottow.fottow.data.base.APIErrorMapper
-import com.fottow.fottow.data.user.UserLocalDatasource
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.base.map

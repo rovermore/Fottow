@@ -7,4 +7,6 @@ interface UserRepository {
 
     suspend fun logUser(user: String, password: String): Result<Boolean, Error>
     suspend fun registerUser(user: String, password: String, nickName: String): Result<Boolean, Error>
+    suspend fun isUserLogged(): Result<String, Error>
+    suspend fun logout(): Result<Boolean, Error>
 }

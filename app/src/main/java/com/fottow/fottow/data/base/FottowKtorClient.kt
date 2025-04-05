@@ -1,19 +1,18 @@
 package com.fottow.fottow.data.base
 
 import android.util.Log
-import com.fottow.fottow.data.user.UserLocalDatasource
+import com.fottow.fottow.data.user.local.UserLocalDatasource
+import com.fottow.fottow.domain.base.get
+import com.fottow.fottow.domain.base.map
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.auth.Auth
 import io.ktor.client.plugins.auth.providers.BearerTokens
 import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.client.plugins.logging.ANDROID
-import io.ktor.client.plugins.logging.DEFAULT
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
-import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 
 class FottowKtorClient(
@@ -36,7 +35,7 @@ class FottowKtorClient(
                 bearer {
                     loadTokens {
                         BearerTokens(
-                            accessToken = userLocalDatasource.getToken(),
+                            accessToken = userLocalDatasource.getToken().get().toString(),
                             refreshToken = null
                         )
                     }

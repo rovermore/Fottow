@@ -31,9 +31,9 @@ import com.fottow.fottow.presentation.theme.AppTheme
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun FTopBar(
-    onCartClicked: () -> Unit = { },
-    hasNotifications: Boolean = false
-) {
+    hasNotifications: Boolean = false,
+    onIconClicked: () -> Unit = { },
+    ) {
     TopAppBar(
         colors = AppTheme.TopAppColors.colors,
         title = {
@@ -49,7 +49,7 @@ fun FTopBar(
                 modifier = Modifier
                     .semantics { testTagsAsResourceId = true }
                     .testTag("cartButton"),
-                onClick = { onCartClicked() }
+                onClick = { onIconClicked() }
             ){
                 Box(
                     modifier = Modifier
@@ -58,7 +58,7 @@ fun FTopBar(
                     contentAlignment = Alignment.Center,) {
 
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_photo_camera_24),
+                        painter = painterResource(id = R.drawable.ic_logout),
                         contentDescription = "shopping cart",
                         tint = MaterialTheme.colorScheme.onTertiary
                     )
@@ -84,7 +84,7 @@ fun FTopBar(
 @Composable
 private fun AppBarPreview() {
     FTopBar(
-        onCartClicked =  {},
+        onIconClicked =  {},
         hasNotifications = true
     )
 }
