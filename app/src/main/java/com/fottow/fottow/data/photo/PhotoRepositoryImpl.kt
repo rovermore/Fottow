@@ -18,6 +18,13 @@ class PhotoRepositoryImpl(
         }
     }
 
+    override suspend fun uploadIdentificationSelfie(imagePath: String): Result<UploadPhotoResponse, Error> {
+        return photoNetworkDatasource.uploadIdentificationSelfie(imagePath)
+            .mapFailure {
+                apiErrorMapper.map(it)
+            }
+    }
+
     override suspend fun getImages(): Result<List<FottowImage>, Error> {
         return photoNetworkDatasource.getImages()
             .map {

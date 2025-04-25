@@ -16,4 +16,8 @@ class PhotoUseCase(
 
     suspend fun getImages(): Result<List<FottowImage>, Error> =
         photoRepository.getImages()
+
+    suspend fun uploadIdentificationSelfie(imagePath: String): Result<UploadPhotoResponse, Error> {
+        return photoRepository.uploadPhoto(imagePath)
+    }
 }

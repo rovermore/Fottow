@@ -7,5 +7,6 @@ import com.fottow.fottow.domain.photo.model.FottowImage
 
 interface PhotoRepository {
     suspend fun uploadPhoto(imagePath: String): Result<UploadPhotoResponse, Error>
+    suspend fun uploadIdentificationSelfie(imagePath: String): Result<UploadPhotoResponse, Error>
     suspend fun getImages(): Result<List<FottowImage>, Error>
 }

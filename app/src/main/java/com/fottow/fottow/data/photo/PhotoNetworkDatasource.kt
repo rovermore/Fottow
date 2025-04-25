@@ -5,6 +5,7 @@ import com.fottow.fottow.data.base.CallExecutor
 import com.fottow.fottow.data.base.FottowKtorClient
 import com.fottow.fottow.data.base.FottowURL
 import com.fottow.fottow.data.user.register.RegisterRequest
+import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.photo.model.FottowImage
 import com.fottow.fottow.domain.photo.model.FottowImageResponse
@@ -55,5 +56,22 @@ class PhotoNetworkDatasource(
             }
         }
         return callExecutor.executeKtorCall<FottowImageResponse>(call)
+    }
+
+    suspend fun uploadIdentificationSelfie(imagePath: String): Result<UploadPhotoResponse, APIError> {
+        val file = File(imagePath)
+        val call : suspend () -> HttpResponse = {
+            client.getClient().submitFormWithBinaryData(
+                url = FottowURL.IDENTIFICATION_SELFIE_UPLOAD,
+                formData = formData {
+                    append("file", file.readBytes(), Headers.build {
+                        append(HttpHeaders.Accept, "application/json")
+                        append(HttpHeaders.ContentType, "multipart/form-data")
+                        append(HttpHeaders.ContentDisposition, "filename=${file.name}")
+                    })
+                }
+            )
+        }
+        return callExecutor.executeKtorCall<UploadPhotoResponse>(call)
     }
 }

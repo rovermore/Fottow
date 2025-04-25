@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
@@ -62,7 +63,7 @@ fun RegisterScreen(
         }
 
     ) {
-        if (register) navController.navigate(MainScreen)
+        if (register) navController.navigate(IdentificationScreen)
 
         Column(
             modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
