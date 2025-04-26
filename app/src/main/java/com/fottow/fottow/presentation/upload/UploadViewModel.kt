@@ -1,4 +1,4 @@
-package com.fottow.fottow.presentation.main
+package com.fottow.fottow.presentation.upload
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -8,13 +8,12 @@ import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.base.then
 import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
-import com.fottow.fottow.domain.user.usecase.LoginUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class MainViewModel(
+class UploadViewModel(
     private val fileResolver: FileResolver,
     private val updatePhotoUseCase: PhotoUseCase,
 ): ViewModel() {

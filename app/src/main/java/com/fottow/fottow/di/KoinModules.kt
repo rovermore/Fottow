@@ -17,7 +17,7 @@ import com.fottow.fottow.domain.photo.repository.PhotoRepository
 import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
 import com.fottow.fottow.domain.user.usecase.RegisterUseCase
 import com.fottow.fottow.domain.user.usecase.UserUseCase
-import com.fottow.fottow.presentation.main.MainViewModel
+import com.fottow.fottow.presentation.upload.UploadViewModel
 import com.fottow.fottow.presentation.login.LoginViewModel
 import com.fottow.fottow.presentation.register.RegisterViewModel
 import com.fottow.fottow.presentation.gallery.GalleryViewModel
@@ -32,7 +32,7 @@ val appModule = module {
 
     singleOf(::FileResolver)
 
-    viewModelOf(::MainViewModel)
+    viewModelOf(::UploadViewModel)
     viewModelOf(::LoginViewModel)
     viewModelOf(::RegisterViewModel)
     viewModelOf(::GalleryViewModel)

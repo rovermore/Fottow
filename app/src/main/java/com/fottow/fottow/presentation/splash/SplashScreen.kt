@@ -35,7 +35,7 @@ fun SplashScreen(
         coroutineScope.launch {
             if (isLoading.not()) {
                 if (isUserLoged)
-                    navController.navigate(GalleryScreen)
+                    navController.navigate(MainScreen)
                 if (!isUserLoged)
                     navController.navigate(LoginScreen)
             }
