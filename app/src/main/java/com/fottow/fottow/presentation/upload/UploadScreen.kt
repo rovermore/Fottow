@@ -109,16 +109,7 @@ fun UploadScreen(
                     style = Typography.titleLarge
                 )
             }
-            OutlinedButton(
-                onClick = {
-                    navController.navigate(GalleryScreen)
-                },
-            ) {
-                Text(
-                    text = "My Pictures",
-                    style = Typography.titleLarge
-                )
-            }
+
         }
 
         if (updateSuccessful) {
