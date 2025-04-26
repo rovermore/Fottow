@@ -1,4 +1,7 @@
-package com.fottow.fottow.domain.user
+package com.fottow.fottow.domain.user.model
 
-class User {
+data class User(
+    val email: String = "",
+    val name: String = ""
+) {
 }

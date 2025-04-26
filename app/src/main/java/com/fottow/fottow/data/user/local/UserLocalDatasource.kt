@@ -9,7 +9,7 @@ class UserLocalDatasource(
 
     companion object {
         const val TOKEN_KEY = "TOKEN_KEY"
-        const val USER_KEY = "USER_KEY"
+        const val EMAIL_KEY = "EMAIL_KEY"
         const val NAME_KEY = "NAME_KEY"
     }
 
@@ -24,13 +24,13 @@ class UserLocalDatasource(
         dataStore.delete<String>(TOKEN_KEY)
     }
 
-    fun getUser(): Result<String, Error> = dataStore.read<String>(USER_KEY)
+    fun getEmail(): Result<String, Error> = dataStore.read<String>(EMAIL_KEY)
 
-    fun setUser(user: String) {
-        dataStore.save(USER_KEY, user)
+    fun setEmail(email: String) {
+        dataStore.save(EMAIL_KEY, email)
     }
 
-    fun deleteUser() {
+    fun deleteEmail() {
         dataStore.delete<String>(NAME_KEY)
     }
 

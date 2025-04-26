@@ -16,6 +16,7 @@ import com.fottow.fottow.domain.user.usecase.LoginUseCase
 import com.fottow.fottow.domain.photo.repository.PhotoRepository
 import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
 import com.fottow.fottow.domain.user.usecase.RegisterUseCase
+import com.fottow.fottow.domain.user.usecase.UserUseCase
 import com.fottow.fottow.presentation.main.MainViewModel
 import com.fottow.fottow.presentation.login.LoginViewModel
 import com.fottow.fottow.presentation.register.RegisterViewModel
@@ -44,6 +45,8 @@ val appModule = module {
     factory { LoginUseCase(get())}
 
     factory { RegisterUseCase(get()) }
+
+    factory { UserUseCase(get()) }
 
     single { FottowKtorClient(get()) }
 

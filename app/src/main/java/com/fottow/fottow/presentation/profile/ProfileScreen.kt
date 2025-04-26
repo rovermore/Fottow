@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.R
@@ -25,6 +28,7 @@ fun ProfileScreen(
 ) {
 
     val onLogout by viewModel.onLogout.collectAsStateWithLifecycle()
+    val user by viewModel.userInfo.collectAsStateWithLifecycle()
 
     if (onLogout) {
         navController.navigate(LoginScreen)
@@ -41,10 +45,21 @@ fun ProfileScreen(
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.XL),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            Text(
+                text = "username",//user.name,
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.Black
+            )
+            Text(
+                text = "user email",//user.email,
+                fontSize = 30.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.Black
+            )
         }
 
     }

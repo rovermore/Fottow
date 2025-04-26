@@ -4,9 +4,11 @@ import com.fottow.fottow.data.base.APIErrorMapper
 import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Result
+import com.fottow.fottow.domain.base.Success
+import com.fottow.fottow.domain.base.get
 import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
-import com.fottow.fottow.domain.user.User
+import com.fottow.fottow.domain.user.model.User
 import com.fottow.fottow.domain.user.repository.UserRepository
 
 class UserRepositoryImpl(
@@ -18,7 +20,7 @@ class UserRepositoryImpl(
         return userNetworkDatasource.logUser(user, password)
             .map {
                 userLocalDatasource.setToken(it.token)
-                userLocalDatasource.setUser(user)
+                userLocalDatasource.setEmail(user)
                 true
             }
             .mapFailure {
@@ -49,7 +51,7 @@ class UserRepositoryImpl(
         return userNetworkDatasource.logout()
             .map {
                 userLocalDatasource.deleteToken()
-                userLocalDatasource.deleteUser()
+                userLocalDatasource.deleteEmail()
                 userLocalDatasource.deleteName()
                 true
             }
@@ -59,6 +61,9 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getUser(): Result<User, Error> {
-        TODO("Not yet implemented")
+        val user = User()
+         userLocalDatasource.getEmail().get()
+        userLocalDatasource.getName().get()
+        return Success(user)
     }
 }
