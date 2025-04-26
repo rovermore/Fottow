@@ -26,8 +26,6 @@ const val RegisterScreen = "RegisterScreen"
 const val IdentificationScreen = "IdentificationScreen"
 const val GalleryScreen = "GalleryScreen"
 const val ImageViewerScreen = "ImageViewerScreen"
-const val ProfileScreen = "ProfileScreen"
-const val UploadScreen = "UploadScreen"
 
 fun NavController.navigateToImageViewer(imageUrl: String) {
     this.navigate(
@@ -43,11 +41,9 @@ fun FottowNavHost() {
     NavHost(navController = navController, startDestination = SplashScreen) {
         composable(SplashScreen) { SplashScreen(navController = navController) }
         composable(MainScreen) { MainScreen(navController = navController) }
-        animatedComposable(UploadScreen) { UploadScreen(navController = navController) }
         animatedComposable(LoginScreen) { LoginScreen(navController = navController) }
         animatedComposable(RegisterScreen) { RegisterScreen(navController = navController) }
         animatedComposable(IdentificationScreen) { IdentificationScreen(navController = navController) }
-        animatedComposable(GalleryScreen) { GalleryScreen(navController = navController) }
         animatedComposable(
             route = "$ImageViewerScreen?imageUrl={imageUrl}",
             arguments = listOf(
@@ -63,7 +59,5 @@ fun FottowNavHost() {
             )
             ImageViewerScreen(imageUrl = imageUrl, navController = navController)
         }
-        animatedComposable(ProfileScreen) { ProfileScreen(navController = navController) }
-
     }
 }
