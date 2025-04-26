@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.navigation.LoginScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.Purple40
@@ -34,7 +35,7 @@ fun SplashScreen(
         coroutineScope.launch {
             if (isLoading.not()) {
                 if (isUserLoged)
-                    navController.navigate(MainScreen)
+                    navController.navigate(GalleryScreen)
                 if (!isUserLoged)
                     navController.navigate(LoginScreen)
             }

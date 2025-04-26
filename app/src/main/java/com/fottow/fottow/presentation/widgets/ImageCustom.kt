@@ -19,7 +19,7 @@ fun ImageCustom(
         modifier = modifier,
         model = ImageRequest.Builder(LocalContext.current)
             .data(imageUrl)
-            .diskCachePolicy(CachePolicy.DISABLED)
+            .diskCachePolicy(CachePolicy.ENABLED)
             .memoryCachePolicy(CachePolicy.ENABLED)
             .error(R.drawable.ic_baseline_error_24)
             .fallback(R.drawable.ic_baseline_error_24)

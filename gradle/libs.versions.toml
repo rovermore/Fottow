@@ -21,6 +21,7 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2025.02.00"
 navigationCompose = "2.8.8"
+zoomable = "2.6.0"
 
 
 [libraries]
@@ -60,6 +61,7 @@ ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negoti
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorClientCore" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClientCore" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClientCore" }
+zoomable = { module = "net.engawapg.lib:zoomable", version.ref = "zoomable" }
 
 
 [plugins]

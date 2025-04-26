@@ -110,5 +110,7 @@ dependencies {
     //Data store
     implementation(libs.androidx.datastore.preferences)
 
+    //zoomable
+    implementation(libs.zoomable)
 
 }

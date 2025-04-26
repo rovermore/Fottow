@@ -22,7 +22,7 @@ fun ScreenContainer(
     background: Color = MaterialTheme.colorScheme.background,
     onRefresh: (() -> Unit)? = null,
     topBar: @Composable () -> Unit = {},
-    bottomBar: @Composable () -> Unit = {},
+    bottomBar: @Composable (() -> Unit)? = null,
     isLoading: Boolean = false,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -31,7 +31,7 @@ fun ScreenContainer(
             Scaffold(
                 modifier = modifier,
                 topBar = topBar,
-                bottomBar = bottomBar,
+                bottomBar = { bottomBar?.invoke() },
                 content = { paddingValues ->
                     Column(
                         modifier = Modifier
