@@ -22,6 +22,7 @@ import com.fottow.fottow.presentation.register.RegisterViewModel
 import com.fottow.fottow.presentation.gallery.GalleryViewModel
 import com.fottow.fottow.presentation.splash.SplashScreenViewModel
 import com.fottow.fottow.presentation.identification.IdentificationViewModel
+import com.fottow.fottow.presentation.profile.ProfileViewModel
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -36,6 +37,7 @@ val appModule = module {
     viewModelOf(::GalleryViewModel)
     viewModelOf(::SplashScreenViewModel)
     viewModelOf(::IdentificationViewModel)
+    viewModelOf(::ProfileViewModel)
 
     factory { PhotoUseCase(get()) }
 

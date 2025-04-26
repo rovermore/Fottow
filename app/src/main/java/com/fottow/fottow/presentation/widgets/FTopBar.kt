@@ -1,5 +1,6 @@
 package com.fottow.fottow.presentation.widgets
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
@@ -32,6 +33,7 @@ import com.fottow.fottow.presentation.theme.AppTheme
 @Composable
 fun FTopBar(
     hasNotifications: Boolean = false,
+    @DrawableRes icon: Int? = null,
     onIconClicked: () -> Unit = { },
     ) {
     TopAppBar(
@@ -57,11 +59,14 @@ fun FTopBar(
                         .align(Alignment.CenterVertically),
                     contentAlignment = Alignment.Center,) {
 
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_logout),
-                        contentDescription = "shopping cart",
-                        tint = MaterialTheme.colorScheme.onTertiary
-                    )
+                    icon?.let {
+                        Icon(
+                            painter = painterResource(id = icon),
+                            contentDescription = "shopping cart",
+                            tint = MaterialTheme.colorScheme.onTertiary
+                        )
+                    }
+
 
                     if (hasNotifications)
                         Box(

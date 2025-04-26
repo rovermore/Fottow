@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val fileResolver: FileResolver,
     private val updatePhotoUseCase: PhotoUseCase,
-    private val loginUseCase: LoginUseCase
 ): ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -28,9 +27,6 @@ class MainViewModel(
 
     private val _onError = MutableStateFlow(false)
     val onError: StateFlow<Boolean> get() = _onError
-
-    private val _onLogout = MutableStateFlow(false)
-    val onLogout: StateFlow<Boolean> get() = _onLogout
 
     fun selectImage(uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -56,13 +52,6 @@ class MainViewModel(
         _onError.value = false
     }
 
-    fun logout() {
-        viewModelScope.launch {
-            loginUseCase.logout()
-                .map {
-                    _onLogout.value = true
-                }
-        }
-    }
+
 
 }

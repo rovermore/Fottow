@@ -50,7 +50,6 @@ fun MainScreen(
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val updateSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
     val onError by viewModel.onError.collectAsStateWithLifecycle()
-    val onLogout by viewModel.onLogout.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
@@ -80,9 +79,7 @@ fun MainScreen(
     )
 
     ScreenContainer(
-        topBar = { FTopBar {
-            viewModel.logout()
-        } }
+        topBar = { FTopBar {} }
     ) {
         Column(
             modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
@@ -135,9 +132,6 @@ fun MainScreen(
             Loader()
         }
 
-        if (onLogout) {
-            navController.navigate(LoginScreen)
-        }
     }
 }
 

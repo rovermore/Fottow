@@ -23,6 +23,7 @@ import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.identification.IdentificationScreen
 import com.fottow.fottow.presentation.login.LoginScreen
 import com.fottow.fottow.presentation.main.MainScreen
+import com.fottow.fottow.presentation.profile.ProfileScreen
 import com.fottow.fottow.presentation.register.RegisterScreen
 import com.fottow.fottow.presentation.splash.SplashScreen
 import com.fottow.fottow.presentation.viewer.ImageViewerScreen
@@ -37,6 +38,7 @@ const val RegisterScreen = "RegisterScreen"
 const val IdentificationScreen = "IdentificationScreen"
 const val GalleryScreen = "GalleryScreen"
 const val ImageViewerScreen = "ImageViewerScreen"
+const val ProfileScreen = "ProfileScreen"
 
 fun NavController.navigateToImageViewer(imageUrl: String) {
     this.navigate(
@@ -75,12 +77,12 @@ fun FottowNavHost() {
                         ) {
                             Icon(Icons.Default.AddCircle, "MainScreen")
                         }
-                        /*IconButton(
-                        onClick = { navController.navigate(MainScreen) },
+                        IconButton(
+                        onClick = { navController.navigate(ProfileScreen) },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Icon(Icons.Default.Person, "MainScreen")
-                    }*/
+                        Icon(Icons.Default.Person, "ProfileScreen")
+                    }
                     }
                 }
             }
@@ -107,7 +109,10 @@ fun FottowNavHost() {
                     "UTF-8"
                 )
 
-                ImageViewerScreen(imageUrl = imageUrl, navController = navController) }
+                ImageViewerScreen(imageUrl = imageUrl, navController = navController)
+            }
+            animatedComposable(ProfileScreen) { ProfileScreen(navController = navController) }
+
         }
     }
 }
