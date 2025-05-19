@@ -22,6 +22,7 @@ import com.fottow.fottow.R
 @Composable
 fun ErrorView(
     modifier: Modifier = Modifier,
+    message: String = "Error occurred",
     onReloadCLicked: () -> Unit
 ) {
     Column(
@@ -40,7 +41,7 @@ fun ErrorView(
 
         Text(
             modifier = Modifier.padding(top = 6.dp),
-            text = "Error occurred",
+            text = message,
             fontWeight = FontWeight.Bold,
             color = Color.DarkGray
         )

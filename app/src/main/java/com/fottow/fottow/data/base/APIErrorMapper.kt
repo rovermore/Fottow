@@ -10,6 +10,7 @@ class APIErrorMapper() {
         is APIError.UnauthorizedError -> Error.Unauthorized(apiError.message)
         is APIError.NotFound -> Error.OperationCompletedWithError(apiError.message)
         is APIError.TimeOut -> Error.ConnectionError(apiError.message)
+        is APIError.NotProcessableEntity -> Error.Unauthorized(apiError.message)
         else -> Error.Unmapped(apiError.message)
     }
 }

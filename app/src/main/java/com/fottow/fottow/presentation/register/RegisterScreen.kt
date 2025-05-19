@@ -66,7 +66,9 @@ fun RegisterScreen(
         if (register) navController.navigate(IdentificationScreen)
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(AppTheme.Spacing.L),
             verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -109,9 +111,12 @@ fun RegisterScreen(
                 )
             }
 
-            if (error) ErrorView {
+            if (error.isNotEmpty())
+                ErrorView(
+                message = error
+                ) {
                 viewModel.registerUser(email.text, password.text, nickName.text)
-            }
+                }
         }
     }
 }
