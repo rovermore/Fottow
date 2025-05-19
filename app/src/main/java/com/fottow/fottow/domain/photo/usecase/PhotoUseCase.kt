@@ -18,6 +18,6 @@ class PhotoUseCase(
         photoRepository.getImages()
 
     suspend fun uploadIdentificationSelfie(imagePath: String): Result<UploadPhotoResponse, Error> {
-        return photoRepository.uploadPhoto(imagePath)
+        return photoRepository.uploadIdentificationSelfie(imagePath)
     }
 }
