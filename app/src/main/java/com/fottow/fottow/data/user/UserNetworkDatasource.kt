@@ -7,6 +7,7 @@ import com.fottow.fottow.data.base.FottowURL
 import com.fottow.fottow.data.user.login.LoginRequest
 import com.fottow.fottow.data.user.login.LoginResponse
 import com.fottow.fottow.data.user.register.RegisterRequest
+import com.fottow.fottow.data.user.register.RegisterResponse
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.base.Success
 import io.ktor.client.request.request
@@ -37,7 +38,7 @@ class UserNetworkDatasource(
         return callExecutor.executeKtorCall<LoginResponse>(call)
     }
 
-    suspend fun userRegister(userName: String, password: String, nickname: String): Result<String, APIError> {
+    suspend fun userRegister(userName: String, password: String, nickname: String): Result<RegisterResponse, APIError> {
         val call : suspend () -> HttpResponse = {
             client.getClient().request(FottowURL.REGISTER) {
                 method = HttpMethod.Post
@@ -49,7 +50,7 @@ class UserNetworkDatasource(
                 setBody(RegisterRequest(userName, password, nickname))
             }
         }
-        return callExecutor.executeKtorCall<String>(call)
+        return callExecutor.executeKtorCall<RegisterResponse>(call)
     }
 
     suspend fun logout(): Result<Boolean, APIError> {

@@ -35,6 +35,7 @@ class UserRepositoryImpl(
     ): Result<Boolean, Error> {
         return userNetworkDatasource.userRegister(user, password, nickName)
             .map {
+                userLocalDatasource.setToken(it.token)
                 userLocalDatasource.setName(nickName)
                 true
             }
