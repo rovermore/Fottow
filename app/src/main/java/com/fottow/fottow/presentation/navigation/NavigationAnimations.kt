@@ -9,7 +9,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
-const val animationDuration = 700
+const val animationDuration = 400
 
 fun NavGraphBuilder.animatedComposable(
     route: String,
