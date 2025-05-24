@@ -1,5 +1,6 @@
 package com.fottow.fottow.di
 
+import android.content.Context
 import androidx.work.WorkerParameters
 import com.fottow.fottow.FileResolver
 import com.fottow.fottow.data.base.APIErrorMapper
@@ -18,8 +19,6 @@ import com.fottow.fottow.domain.photo.repository.PhotoRepository
 import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
 import com.fottow.fottow.domain.user.usecase.RegisterUseCase
 import com.fottow.fottow.domain.user.usecase.UserUseCase
-import com.fottow.fottow.presentation.RetryUploadPhotoWorker
-import com.fottow.fottow.presentation.UploadPhotoService
 import com.fottow.fottow.presentation.upload.UploadViewModel
 import com.fottow.fottow.presentation.login.LoginViewModel
 import com.fottow.fottow.presentation.register.RegisterViewModel
@@ -27,14 +26,12 @@ import com.fottow.fottow.presentation.gallery.GalleryViewModel
 import com.fottow.fottow.presentation.splash.SplashScreenViewModel
 import com.fottow.fottow.presentation.identification.IdentificationViewModel
 import com.fottow.fottow.presentation.profile.ProfileViewModel
-import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.workmanager.dsl.worker
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
-
-    single { androidContext() }
 
     singleOf(::FileResolver)
 
@@ -73,7 +70,5 @@ val appModule = module {
     single<PhotoRepository> { PhotoRepositoryImpl(get(), get()) }
 
     single<UserRepository> {UserRepositoryImpl(get(), get(), get())}
-
-    single { UploadPhotoService(get(), get()) }
 
 }

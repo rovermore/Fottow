@@ -60,16 +60,16 @@ fun UploadScreen(
     var cameraPhotoUri by remember { mutableStateOf(value = Uri.EMPTY) }
 
     val pickPicture = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
-        viewModel.selectImage(imageUri)
-    }
-
-    val takePhoto = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { saved ->
-        if (saved && cameraPhotoUri != Uri.EMPTY) { //viewModel.selectImage(cameraPhotoUri)
+        if (imageUri != Uri.EMPTY) {
             val intent = Intent(context, UploadPhotoService::class.java).apply {
-                data = cameraPhotoUri
+                data = imageUri
             }
             ContextCompat.startForegroundService(context, intent)
         }
+    }
+
+    val takePhoto = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { saved ->
+        if (saved && cameraPhotoUri != Uri.EMPTY) viewModel.selectImage(cameraPhotoUri)
     }
 
     val cameraPermission = Manifest.permission.CAMERA

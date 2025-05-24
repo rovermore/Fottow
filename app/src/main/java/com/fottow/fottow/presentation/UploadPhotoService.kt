@@ -16,14 +16,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
-class UploadPhotoService(
-    private val fileResolver: FileResolver,
-    private val updatePhotoUseCase: PhotoUseCase
-) : Service() {
+class UploadPhotoService : Service() {
+
+    private val updatePhotoUseCase: PhotoUseCase by inject()
+    private val fileResolver: FileResolver by inject()
 
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
-
 
     override fun onBind(p0: Intent?): IBinder? = null
 
@@ -41,7 +41,7 @@ class UploadPhotoService(
                             stopForeground(true)
                             stopSelf()
                         }.mapFailure {
-                            RetryUploadPhotoWorker.enqueue(applicationContext, imageUri)
+                            stopSelf()
                         }
                 }
             }

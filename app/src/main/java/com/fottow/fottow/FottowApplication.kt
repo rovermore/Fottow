@@ -7,9 +7,9 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.GlobalContext.startKoin
 import androidx.work.Configuration
-import com.fottow.fottow.di.KoinWorkerFactory
+import org.koin.androidx.workmanager.koin.workManagerFactory
 
-class FottowApplication : Application(), Configuration.Provider {
+class FottowApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -20,9 +20,4 @@ class FottowApplication : Application(), Configuration.Provider {
             modules(appModule)
         }
     }
-
-    override val workManagerConfiguration: Configuration
-        get() = Configuration.Builder()
-            .setWorkerFactory(KoinWorkerFactory(GlobalContext.get()))
-            .build()
 }
