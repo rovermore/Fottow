@@ -2,6 +2,7 @@ package com.fottow.fottow.presentation.upload
 
 import android.Manifest
 import android.content.ContentValues
+import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -28,8 +29,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.presentation.UploadPhotoService
 import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
@@ -39,6 +42,7 @@ import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -46,6 +50,7 @@ fun UploadScreen(
     viewModel: UploadViewModel = koinViewModel<UploadViewModel>(),
     navController: NavController
 ) {
+
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val updateSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
     val onError by viewModel.onError.collectAsStateWithLifecycle()
@@ -59,7 +64,12 @@ fun UploadScreen(
     }
 
     val takePhoto = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { saved ->
-        if (saved && cameraPhotoUri != Uri.EMPTY) viewModel.selectImage(cameraPhotoUri)
+        if (saved && cameraPhotoUri != Uri.EMPTY) { //viewModel.selectImage(cameraPhotoUri)
+            val intent = Intent(context, UploadPhotoService::class.java).apply {
+                data = cameraPhotoUri
+            }
+            ContextCompat.startForegroundService(context, intent)
+        }
     }
 
     val cameraPermission = Manifest.permission.CAMERA
