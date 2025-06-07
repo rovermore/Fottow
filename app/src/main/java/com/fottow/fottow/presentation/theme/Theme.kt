@@ -13,21 +13,21 @@ import org.koin.compose.KoinContext
 import org.koin.core.context.KoinContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
+    primary = Primary,
+    secondary = Secondary,
     tertiary = Pink80,
     background = BackgroundDark,
-    onPrimaryContainer = Purple40
+    onPrimaryContainer = Primary
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
+    primary = Primary,
+    secondary = Secondary,
     tertiary = Pink40,
-    background = BackgroundLight,
+    background = White,
     surface = Surface,
     onTertiary = White,
-    primaryContainer = Purple40
+    primaryContainer = Primary
     /* Other default colors to override
     onPrimary = Color.White,
     onSecondary = Color.White,

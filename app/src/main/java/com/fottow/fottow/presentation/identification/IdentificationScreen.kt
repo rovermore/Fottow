@@ -32,6 +32,7 @@ import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.ErrorView
+import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
@@ -87,7 +88,9 @@ fun IdentificationScreen(
         if (uploadSuccessful) navController.navigate(MainScreen)
 
         Column(
-            modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(AppTheme.Spacing.L),
             verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -97,20 +100,16 @@ fun IdentificationScreen(
                 style = MaterialTheme.typography.headlineMedium
             )
 
-            OutlinedButton(
+            PrimaryButton(
+                text = "Take photo",
                 onClick = {
                     val values = ContentValues()
                     values.put(MediaStore.Images.Media.TITLE, "Back Picture")
                     values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
                     cameraPhotoUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
                     cameraPermissionState.launchPermissionRequest()
-                },
-            ) {
-                Text(
-                    text = "Take photo",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
             if (isError) ErrorView {
             }

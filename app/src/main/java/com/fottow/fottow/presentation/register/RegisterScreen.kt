@@ -31,7 +31,9 @@ import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
+import com.fottow.fottow.presentation.widgets.CustomTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
+import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import org.koin.androidx.compose.koinViewModel
 
@@ -75,41 +77,37 @@ fun RegisterScreen(
 
             Text(text = "Crea tu cuenta", style = MaterialTheme.typography.headlineMedium)
 
-            TextField(
+            CustomTextField(
                 value = nickName,
                 onValueChange = { nickName = it },
-                label = { Text("Nombre de usuario") },
+                label = "Nombre de usuario",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 modifier = Modifier.fillMaxWidth()
             )
 
-            TextField(
+            CustomTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Correo electrónico") },
+                label = "Correo electrónico",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth()
             )
 
-            TextField(
+            CustomTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Contraseña") },
+                label = "Contraseña",
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedButton(
+            PrimaryButton(
+                text = "Sign up",
                 onClick = {
                     viewModel.registerUser(email.text, password.text, nickName.text)
-                },
-            ) {
-                Text(
-                    text = "Sign up",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
             if (error.isNotEmpty())
                 ErrorView(

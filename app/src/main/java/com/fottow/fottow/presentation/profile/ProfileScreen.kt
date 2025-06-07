@@ -27,10 +27,9 @@ fun ProfileScreen(
     navController: NavController
 ) {
 
-    val onLogout by viewModel.onLogout.collectAsStateWithLifecycle()
-    val user by viewModel.userInfo.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
-    if (onLogout) {
+    if (state.onLogout) {
         navController.navigate(LoginScreen)
     }
 
@@ -49,16 +48,16 @@ fun ProfileScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "username",//user.name,
-                fontSize = 30.sp,
+                text = state.userInfo.name,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = Color.Black
+                color = Color.DarkGray
             )
             Text(
-                text = "user email",//user.email,
-                fontSize = 30.sp,
+                text = state.userInfo.email,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = Color.Black
+                color = Color.DarkGray
             )
         }
 

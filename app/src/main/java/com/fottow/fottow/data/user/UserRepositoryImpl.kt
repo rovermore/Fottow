@@ -5,7 +5,7 @@ import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.base.Success
-import com.fottow.fottow.domain.base.get
+import com.fottow.fottow.domain.base.getOrDefault
 import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.user.model.User
@@ -16,12 +16,17 @@ class UserRepositoryImpl(
     private val userLocalDatasource: UserLocalDatasource,
     private val apiErrorMapper: APIErrorMapper
 ): UserRepository {
-    override suspend fun logUser(user: String, password: String): Result<Boolean, Error> {
+    override suspend fun logUser(user: String, password: String): Result<User, Error> {
         return userNetworkDatasource.logUser(user, password)
             .map {
                 userLocalDatasource.setToken(it.token)
                 userLocalDatasource.setEmail(user)
-                true
+                it.userData.nick?.let { it1 -> userLocalDatasource.setName(it1) }
+                User(
+                    email = it.userData.userName,
+                    name = it.userData.nick ?: "",
+                    profileImage = it.userData.profileImage ?: ""
+                )
             }
             .mapFailure {
                 apiErrorMapper.map(it)
@@ -37,6 +42,7 @@ class UserRepositoryImpl(
             .map {
                 userLocalDatasource.setToken(it.token)
                 userLocalDatasource.setName(nickName)
+                userLocalDatasource.setEmail(user)
                 true
             }
             .mapFailure {
@@ -62,9 +68,10 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getUser(): Result<User, Error> {
-        val user = User()
-         userLocalDatasource.getEmail().get()
-        userLocalDatasource.getName().get()
+        val email = userLocalDatasource.getEmail().getOrDefault("")
+        val name = userLocalDatasource.getName().getOrDefault("")
+
+        val user = User(email, name)
         return Success(user)
     }
 }

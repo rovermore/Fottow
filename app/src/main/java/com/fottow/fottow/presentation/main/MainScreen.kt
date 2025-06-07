@@ -1,5 +1,6 @@
 package com.fottow.fottow.presentation.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.profile.ProfileScreen
+import com.fottow.fottow.presentation.theme.White
 import com.fottow.fottow.presentation.upload.UploadScreen
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 
@@ -33,7 +35,9 @@ fun MainScreen(
 
     ScreenContainer(
         bottomBar = {
-            BottomAppBar {
+            BottomAppBar(
+                modifier = Modifier.background(White)
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly

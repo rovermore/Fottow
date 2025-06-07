@@ -38,6 +38,8 @@ import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.FTopBar
 import com.fottow.fottow.presentation.widgets.Loader
+import com.fottow.fottow.presentation.widgets.PrimaryButton
+import com.fottow.fottow.presentation.widgets.SecondaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
@@ -91,34 +93,29 @@ fun UploadScreen(
         topBar = { FTopBar {} }
     ) {
         Column(
-            modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(AppTheme.Spacing.L),
             verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedButton(
+            PrimaryButton(
+                text = "Take photo",
                 onClick = {
                     val values = ContentValues()
                     values.put(MediaStore.Images.Media.TITLE, "Back Picture")
                     values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
                     cameraPhotoUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
                     cameraPermissionState.launchPermissionRequest()
-                },
-            ) {
-                Text(
-                    text = "Take photo",
-                    style = Typography.titleLarge
-                )
-            }
-            OutlinedButton(
+                }
+            )
+
+            SecondaryButton(
+                text = "Pick from device",
                 onClick = {
                     pickPicture.launch("image/*")
-                },
-            ) {
-                Text(
-                    text = "Pick from device",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
         }
 

@@ -4,14 +4,11 @@ package com.fottow.fottow.presentation.login
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,11 +25,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.fottow.fottow.presentation.navigation.MainScreen
+import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.navigation.RegisterScreen
+import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
-import com.fottow.fottow.presentation.theme.Typography
+import com.fottow.fottow.presentation.widgets.CustomTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
+import com.fottow.fottow.presentation.widgets.PrimaryButton
+import com.fottow.fottow.presentation.widgets.SecondaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import org.koin.androidx.compose.koinViewModel
 
@@ -42,7 +42,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel<LoginViewModel>(),
     navController: NavController
 ) {
-    val login by viewModel.login.collectAsStateWithLifecycle()
+    val user by viewModel.user.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
 
     var email by remember { mutableStateOf(TextFieldValue("")) }
@@ -62,53 +62,48 @@ fun LoginScreen(
         }
 
     ) {
-        if (login) navController.navigate(MainScreen)
+        if (user.email.isNotEmpty() && user.profileImage.isNotEmpty())
+            navController.navigate(MainScreen)
+        if (user.email.isNotEmpty() && user.profileImage.isEmpty())
+            navController.navigate(IdentificationScreen)
         Column(
-            modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(AppTheme.Spacing.L),
             verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
             Text(text = "Iniciar Sesión", style = MaterialTheme.typography.headlineMedium)
 
-            TextField(
+            CustomTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Correo electrónico") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                modifier = Modifier.fillMaxWidth()
+                label = "Correo electrónico",
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
 
-            TextField(
+            CustomTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Contraseña") },
+                label = "Contraseña",
                 visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
 
-            OutlinedButton(
+            PrimaryButton(
+                text = "Log in",
                 onClick = {
                     viewModel.logUser(email.text, password.text)
-                },
-            ) {
-                Text(
-                    text = "Log in",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
-            OutlinedButton(
+            SecondaryButton(
+                text = "Regístrate",
                 onClick = {
                     navController.navigate(RegisterScreen)
-                },
-            ) {
-                Text(
-                    text = "Regístrate",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
             if (error) ErrorView {  }
         }

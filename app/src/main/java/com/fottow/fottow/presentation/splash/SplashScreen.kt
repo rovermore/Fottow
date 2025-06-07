@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.navigation.LoginScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
+import com.fottow.fottow.presentation.theme.Primary
 import com.fottow.fottow.presentation.theme.Purple40
 import com.fottow.fottow.presentation.theme.White
 import kotlinx.coroutines.launch
@@ -43,7 +44,7 @@ fun SplashScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize().background(color = Purple40)
+        modifier = Modifier.fillMaxSize().background(color = Primary)
     ) {
         Text(
             modifier = Modifier.align(Alignment.Center),
