@@ -32,6 +32,7 @@ import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.navigation.RegisterScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
+import com.fottow.fottow.presentation.widgets.CustomTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.SecondaryButton
@@ -75,21 +76,19 @@ fun LoginScreen(
 
             Text(text = "Iniciar Sesión", style = MaterialTheme.typography.headlineMedium)
 
-            TextField(
+            CustomTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Correo electrónico") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                modifier = Modifier.fillMaxWidth()
+                label = "Correo electrónico",
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
             )
 
-            TextField(
+            CustomTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Contraseña") },
+                label = "Contraseña",
                 visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
 
             PrimaryButton(

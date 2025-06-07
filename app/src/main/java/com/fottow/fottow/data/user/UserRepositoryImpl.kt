@@ -5,7 +5,7 @@ import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.base.Success
-import com.fottow.fottow.domain.base.get
+import com.fottow.fottow.domain.base.getOrDefault
 import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.user.model.User
@@ -21,6 +21,7 @@ class UserRepositoryImpl(
             .map {
                 userLocalDatasource.setToken(it.token)
                 userLocalDatasource.setEmail(user)
+                it.userName.nick?.let { it1 -> userLocalDatasource.setName(it1) }
                 true
             }
             .mapFailure {
@@ -37,6 +38,7 @@ class UserRepositoryImpl(
             .map {
                 userLocalDatasource.setToken(it.token)
                 userLocalDatasource.setName(nickName)
+                userLocalDatasource.setEmail(user)
                 true
             }
             .mapFailure {
@@ -62,9 +64,10 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getUser(): Result<User, Error> {
-        val user = User()
-         userLocalDatasource.getEmail().get()
-        userLocalDatasource.getName().get()
+        val email = userLocalDatasource.getEmail().getOrDefault("")
+        val name = userLocalDatasource.getName().getOrDefault("")
+
+        val user = User(email, name)
         return Success(user)
     }
 }

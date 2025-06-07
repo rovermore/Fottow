@@ -24,5 +24,15 @@ fun <T> Result<T, T>.get() = when (this) {
     is Failure<T> -> reason
 }
 
+fun <T, E> Result<T, E>.getOrNull(): T? = when (this) {
+    is Success<T> -> value
+    is Failure<E> -> null
+}
+
+fun <T, E> Result<T, E>.getOrDefault(defaultValue: T): T = when (this) {
+    is Success<T> -> value
+    is Failure<E> -> defaultValue
+}
+
 inline fun <T, E> Result<T, E>.then(f: () -> Unit) =
     apply { f() }
