@@ -5,6 +5,7 @@ accompanistSwiperefresh = "0.23.1"
 agp = "8.6.1"
 coilCompose = "2.4.0"
 datastorePreferences = "1.1.4"
+inspektor = "0.3.8"
 koinAndroid = "4.0.0"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
@@ -35,6 +36,7 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+inspektor = { module = "com.gyanoba.inspektor:inspektor", version.ref = "inspektor" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

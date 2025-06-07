@@ -101,6 +101,9 @@ dependencies {
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.auth)
 
+    //Inspektor - HTTP inspection
+    implementation(libs.inspektor)
+
     //navigation compose
     implementation(libs.androidx.navigation.compose)
 

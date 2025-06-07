@@ -3,7 +3,7 @@ package com.fottow.fottow.data.base
 import android.util.Log
 import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.get
-import com.fottow.fottow.domain.base.map
+import com.gyanoba.inspektor.Inspektor
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.auth.Auth
@@ -31,6 +31,9 @@ class FottowKtorClient(
                 }
                 level = LogLevel.ALL
             }
+             install(Inspektor) {
+                 level = com.gyanoba.inspektor.LogLevel.BODY
+             }
             install(Auth) {
                 bearer {
                     loadTokens {
