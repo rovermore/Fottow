@@ -4,14 +4,11 @@ package com.fottow.fottow.presentation.login
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -28,10 +25,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.fottow.fottow.presentation.navigation.MainScreen
+import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.navigation.RegisterScreen
+import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
-import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.CustomTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.PrimaryButton
@@ -45,7 +42,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel<LoginViewModel>(),
     navController: NavController
 ) {
-    val login by viewModel.login.collectAsStateWithLifecycle()
+    val user by viewModel.user.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
 
     var email by remember { mutableStateOf(TextFieldValue("")) }
@@ -65,7 +62,10 @@ fun LoginScreen(
         }
 
     ) {
-        if (login) navController.navigate(MainScreen)
+        if (user.email.isNotEmpty() && user.profileImage.isNotEmpty())
+            navController.navigate(MainScreen)
+        if (user.email.isNotEmpty() && user.profileImage.isEmpty())
+            navController.navigate(IdentificationScreen)
         Column(
             modifier = Modifier
                 .fillMaxSize()

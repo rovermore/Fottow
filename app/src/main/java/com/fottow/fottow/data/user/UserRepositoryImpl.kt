@@ -16,13 +16,17 @@ class UserRepositoryImpl(
     private val userLocalDatasource: UserLocalDatasource,
     private val apiErrorMapper: APIErrorMapper
 ): UserRepository {
-    override suspend fun logUser(user: String, password: String): Result<Boolean, Error> {
+    override suspend fun logUser(user: String, password: String): Result<User, Error> {
         return userNetworkDatasource.logUser(user, password)
             .map {
                 userLocalDatasource.setToken(it.token)
                 userLocalDatasource.setEmail(user)
-                it.userName.nick?.let { it1 -> userLocalDatasource.setName(it1) }
-                true
+                it.userData.nick?.let { it1 -> userLocalDatasource.setName(it1) }
+                User(
+                    email = it.userData.userName,
+                    name = it.userData.nick ?: "",
+                    profileImage = it.userData.profileImage ?: ""
+                )
             }
             .mapFailure {
                 apiErrorMapper.map(it)
