@@ -32,6 +32,7 @@ import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.ErrorView
+import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import org.koin.androidx.compose.koinViewModel
 
@@ -100,16 +101,12 @@ fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedButton(
+            PrimaryButton(
+                text = "Sign up",
                 onClick = {
                     viewModel.registerUser(email.text, password.text, nickName.text)
-                },
-            ) {
-                Text(
-                    text = "Sign up",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
             if (error.isNotEmpty())
                 ErrorView(

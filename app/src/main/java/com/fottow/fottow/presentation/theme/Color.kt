@@ -2,6 +2,8 @@ package com.fottow.fottow.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
+val Primary = Color(0xFF4A80B8)
+val Secondary = Color(0xFF4A90B0)
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

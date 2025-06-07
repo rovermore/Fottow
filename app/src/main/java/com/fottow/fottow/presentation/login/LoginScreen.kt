@@ -33,6 +33,8 @@ import com.fottow.fottow.presentation.navigation.RegisterScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.ErrorView
+import com.fottow.fottow.presentation.widgets.PrimaryButton
+import com.fottow.fottow.presentation.widgets.SecondaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import org.koin.androidx.compose.koinViewModel
 
@@ -64,7 +66,9 @@ fun LoginScreen(
     ) {
         if (login) navController.navigate(MainScreen)
         Column(
-            modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.L),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(AppTheme.Spacing.L),
             verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -88,27 +92,19 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            OutlinedButton(
+            PrimaryButton(
+                text = "Log in",
                 onClick = {
                     viewModel.logUser(email.text, password.text)
-                },
-            ) {
-                Text(
-                    text = "Log in",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
-            OutlinedButton(
+            SecondaryButton(
+                text = "Regístrate",
                 onClick = {
                     navController.navigate(RegisterScreen)
-                },
-            ) {
-                Text(
-                    text = "Regístrate",
-                    style = Typography.titleLarge
-                )
-            }
+                }
+            )
 
             if (error) ErrorView {  }
         }
