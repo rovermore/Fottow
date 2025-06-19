@@ -10,6 +10,7 @@ data class FottowImageResponse(
 @Serializable
 data class FottowImage(
     val url: String,
-    val date: String
+    val date: String,
+    val own: Boolean
 ) {
 }
