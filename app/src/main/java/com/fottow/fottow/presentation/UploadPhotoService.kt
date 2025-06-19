@@ -52,7 +52,7 @@ class UploadPhotoService : Service() {
     private fun createNotification(text: String): Notification {
         val channelId = "upload_channel"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Subida", NotificationManager.IMPORTANCE_LOW)
+            val channel = NotificationChannel(channelId, "Subida", NotificationManager.IMPORTANCE_DEFAULT)
             getSystemService(NotificationManager::class.java)?.createNotificationChannel(channel)
         }
 

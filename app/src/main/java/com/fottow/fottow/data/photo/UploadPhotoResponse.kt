@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 data class UploadPhotoResponse(
     val message: String,
     @SerialName("image_url")
-    val imageUrl: String
+    val imageUrl: String,
+    @SerialName("total_faces")
+    val totalFaces: Int
 ) {
 }
