@@ -9,6 +9,7 @@ import com.fottow.fottow.data.photo.PhotoNetworkDatasource
 import com.fottow.fottow.data.photo.PhotoRepositoryImpl
 import com.fottow.fottow.data.base.FottowKtorClient
 import com.fottow.fottow.data.base.NetworkExceptionsMapper
+import com.fottow.fottow.data.photo.PhotoLocalDatasource
 import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.data.user.UserNetworkDatasource
 import com.fottow.fottow.data.user.UserRepositoryImpl
@@ -65,9 +66,11 @@ val appModule = module {
 
     single { UserLocalDatasource(get()) }
 
+    single { PhotoLocalDatasource(get()) }
+
     single { FottowDataStore(get()) }
 
-    single<PhotoRepository> { PhotoRepositoryImpl(get(), get()) }
+    single<PhotoRepository> { PhotoRepositoryImpl(get(), get(), get()) }
 
     single<UserRepository> {UserRepositoryImpl(get(), get(), get())}
 
