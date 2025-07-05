@@ -75,8 +75,7 @@ fun GalleryScreen(
                             .size(height = 100.dp, width = 100.dp)
                             .clip(RoundedCornerShape(AppTheme.Spacing.XS))
                             .clickable {
-                                navController.navigateToImageViewer(it.url)
-
+                                navController.navigateToImageViewer(it.url, result)
                             },
                         imageUrl = it.url
                     )

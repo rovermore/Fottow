@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.fottow.fottow.domain.photo.model.FottowImage
 import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.identification.IdentificationScreen
 import com.fottow.fottow.presentation.login.LoginScreen
@@ -16,6 +17,9 @@ import com.fottow.fottow.presentation.profile.ProfileScreen
 import com.fottow.fottow.presentation.register.RegisterScreen
 import com.fottow.fottow.presentation.splash.SplashScreen
 import com.fottow.fottow.presentation.viewer.ImageViewerScreen
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.net.URLDecoder
 import java.net.URLEncoder
 
@@ -27,9 +31,10 @@ const val IdentificationScreen = "IdentificationScreen"
 const val GalleryScreen = "GalleryScreen"
 const val ImageViewerScreen = "ImageViewerScreen"
 
-fun NavController.navigateToImageViewer(imageUrl: String) {
+fun NavController.navigateToImageViewer(imageUrl: String, photos:List<FottowImage>) {
+    val photosJson = URLEncoder.encode(Json.encodeToString(photos), "UTF-8")
     this.navigate(
-        "$ImageViewerScreen?imageUrl=${URLEncoder.encode(imageUrl, "UTF-8")}"
+        "$ImageViewerScreen?imageUrl=${URLEncoder.encode(imageUrl, "UTF-8")}&photos=$photosJson"
     )
 }
 
@@ -45,9 +50,12 @@ fun FottowNavHost() {
         animatedComposable(RegisterScreen) { RegisterScreen(navController = navController) }
         animatedComposable(IdentificationScreen) { IdentificationScreen(navController = navController) }
         animatedComposable(
-            route = "$ImageViewerScreen?imageUrl={imageUrl}",
+            route = "$ImageViewerScreen?imageUrl={imageUrl}&photos={photos}",
             arguments = listOf(
                 navArgument("imageUrl") {
+                    type = NavType.StringType
+                },
+                navArgument("photos") {
                     type = NavType.StringType
                 }
             )
@@ -57,7 +65,12 @@ fun FottowNavHost() {
                 backStackEntry.arguments?.getString("imageUrl") ?: "",
                 "UTF-8"
             )
-            ImageViewerScreen(imageUrl = imageUrl, navController = navController)
+            val photosJson = URLDecoder.decode(
+                backStackEntry.arguments?.getString("photos") ?: "[]",
+                "UTF-8"
+            )
+            val photos = Json.decodeFromString<List<FottowImage>>(photosJson)
+            ImageViewerScreen(imageUrl = imageUrl, photos = photos, navController = navController)
         }
     }
 }
