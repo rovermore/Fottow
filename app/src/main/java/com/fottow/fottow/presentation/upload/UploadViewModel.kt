@@ -8,6 +8,7 @@ import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.base.then
 import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
+import com.fottow.fottow.presentation.UploadResultManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +28,23 @@ class UploadViewModel(
     private val _onError = MutableStateFlow(false)
     val onError: StateFlow<Boolean> get() = _onError
 
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> get() = _errorMessage
+
+    init {
+        // Escuchar resultados del servicio
+        viewModelScope.launch {
+            UploadResultManager.uploadResult.collect { result ->
+                if (result.success) {
+                    _uploadSuccessful.value = true
+                } else {
+                    _onError.value = true
+                    _errorMessage.value = result.errorMessage
+                }
+            }
+        }
+    }
+
     fun selectImage(uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.value = true
@@ -38,6 +56,7 @@ class UploadViewModel(
                             _uploadSuccessful.value = true
                         }.mapFailure {
                             _onError.value = true
+                            _errorMessage.value = "Error al subir la foto"
                         }.then {
                             _isLoading.value = false
                         }
@@ -49,8 +68,7 @@ class UploadViewModel(
     fun dialogDismissed() {
         _uploadSuccessful.value = false
         _onError.value = false
+        _errorMessage.value = null
     }
-
-
 
 }

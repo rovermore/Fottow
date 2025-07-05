@@ -39,6 +39,7 @@ import com.fottow.fottow.presentation.UploadPhotoService
 import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
+import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.FTopBar
 import com.fottow.fottow.presentation.widgets.Loader
 import com.fottow.fottow.presentation.widgets.PrimaryButton
@@ -59,17 +60,26 @@ fun UploadScreen(
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val updateSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
     val onError by viewModel.onError.collectAsStateWithLifecycle()
+    val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
     var cameraPhotoUri by remember { mutableStateOf(value = Uri.EMPTY) }
 
-    val pickPicture = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
-        if (imageUri != Uri.EMPTY) {
+    var lastImageUri by remember { mutableStateOf<Uri?>(null) }
+    fun startUploadService() {
+        lastImageUri?.let {
             val intent = Intent(context, UploadPhotoService::class.java).apply {
-                data = imageUri
+                data = lastImageUri
             }
             ContextCompat.startForegroundService(context, intent)
+        } ?: viewModel.selectImage(cameraPhotoUri)
+    }
+
+    val pickPicture = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
+        if (imageUri != Uri.EMPTY) {
+            lastImageUri = imageUri
+            startUploadService()
         }
     }
 
@@ -121,14 +131,16 @@ fun UploadScreen(
                 }
             )
 
+            if (onError) {
+                ErrorView { startUploadService() }
+            }
+
         }
 
         if (updateSuccessful) {
             FDialog("La foto se ha subido correctamente") { viewModel.dialogDismissed() }
         }
-        if (onError) {
-            FDialog("Error al subir la foto") { viewModel.dialogDismissed() }
-        }
+
         if (isLoading) {
             Loader()
         }
