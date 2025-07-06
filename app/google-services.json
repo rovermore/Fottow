@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "362854317043",
+    "project_id": "fottow-3c437322",
+    "storage_bucket": "fottow-3c437322.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362854317043:android:11df035ca846c63ffef086",
+        "android_client_info": {
+          "package_name": "com.fottow.fottow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6bexeOMGAk-nvZNjZSweuhT4k5OF4bEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
