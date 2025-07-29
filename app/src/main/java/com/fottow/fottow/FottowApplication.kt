@@ -8,12 +8,13 @@ import org.koin.core.context.GlobalContext
 import org.koin.core.context.GlobalContext.startKoin
 import androidx.work.Configuration
 import org.koin.androidx.workmanager.koin.workManagerFactory
+import com.google.firebase.FirebaseApp
 
 class FottowApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+        FirebaseApp.initializeApp(this)
         startKoin {
             androidLogger()
             androidContext(this@FottowApplication)
