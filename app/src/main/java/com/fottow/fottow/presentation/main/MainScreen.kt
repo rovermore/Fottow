@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,6 +19,7 @@ import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.profile.ProfileScreen
@@ -46,19 +48,31 @@ fun MainScreen(
                         onClick = { screenSelected = ScreenSelected.Gallery },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Icon(Icons.Default.Home, "Gallery")
+                        Icon(
+                            Icons.Default.Home,
+                            "Gallery",
+                            tint = if (screenSelected is ScreenSelected.Gallery) MaterialTheme.colorScheme.primary else Color.Gray
+                        )
                     }
                     IconButton(
                         onClick = { screenSelected = ScreenSelected.Upload },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Icon(Icons.Default.AddCircle, "UploadScreen")
+                        Icon(
+                            Icons.Default.AddCircle,
+                            "UploadScreen",
+                            tint = if (screenSelected is ScreenSelected.Upload) MaterialTheme.colorScheme.primary else Color.Gray
+                        )
                     }
                     IconButton(
                         onClick = { screenSelected = ScreenSelected.Profile },
                         modifier = Modifier.weight(1f)
                     ) {
-                        Icon(Icons.Default.Person, "ProfileScreen")
+                        Icon(
+                            Icons.Default.Person,
+                            "ProfileScreen",
+                            tint = if (screenSelected is ScreenSelected.Profile) MaterialTheme.colorScheme.primary else Color.Gray
+                        )
                     }
                 }
             }

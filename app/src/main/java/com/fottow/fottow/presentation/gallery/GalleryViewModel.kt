@@ -35,8 +35,8 @@ class GalleryViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             _isLoading.emit( true)
             photoUseCase.getImages()
-                .map {
-                    _success.emit(it)
+                .map { result ->
+                    _success.emit(result.sortedByDescending { it.date })
                 }.mapFailure {
                     _onError.emit(true )
                 }.then {

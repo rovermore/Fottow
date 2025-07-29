@@ -20,13 +20,13 @@ class UserRepositoryImpl(
         return userNetworkDatasource.logUser(user, password)
             .map {
                 userLocalDatasource.setToken(it.token)
-                userLocalDatasource.setEmail(user)
-                it.userData.nick?.let { it1 -> userLocalDatasource.setName(it1) }
-                User(
+                val receivedUser = User(
                     email = it.userData.userName,
                     name = it.userData.nick ?: "",
                     profileImage = it.userData.profileImage ?: ""
                 )
+                userLocalDatasource.setUser(receivedUser)
+                receivedUser
             }
             .mapFailure {
                 apiErrorMapper.map(it)
@@ -68,10 +68,6 @@ class UserRepositoryImpl(
     }
 
     override suspend fun getUser(): Result<User, Error> {
-        val email = userLocalDatasource.getEmail().getOrDefault("")
-        val name = userLocalDatasource.getName().getOrDefault("")
-
-        val user = User(email, name)
-        return Success(user)
+        return userLocalDatasource.getUser()
     }
 }
