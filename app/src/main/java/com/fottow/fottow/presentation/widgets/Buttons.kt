@@ -28,8 +28,6 @@ fun PrimaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    backgroundColor: Color = MaterialTheme.colorScheme.primary,
-    contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     cornerRadius: Int = 12
 ) {
     Button(
@@ -38,12 +36,7 @@ fun PrimaryButton(
         modifier = modifier
             .fillMaxWidth()
             .height(50.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = backgroundColor,
-            contentColor = contentColor,
-            disabledContainerColor = backgroundColor.copy(alpha = 0.6f),
-            disabledContentColor = contentColor.copy(alpha = 0.6f)
-        ),
+        colors = ButtonDefaults.buttonColors(),
         shape = RoundedCornerShape(cornerRadius.dp)
     ) {
         Text(
@@ -60,9 +53,6 @@ fun SecondaryButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    borderColor: Color = MaterialTheme.colorScheme.secondary,
-    contentColor: Color = MaterialTheme.colorScheme.secondary,
-    backgroundColor: Color = MaterialTheme.colorScheme.onSecondary,
     cornerRadius: Int = 12
 ) {
     OutlinedButton(
@@ -70,18 +60,8 @@ fun SecondaryButton(
         enabled = enabled,
         modifier = modifier
             .fillMaxWidth()
-            .height(50.dp)
-            .border(
-                width = 1.dp,
-                color = if (enabled) borderColor else borderColor.copy(alpha = 0.6f),
-                shape = RoundedCornerShape(cornerRadius.dp)
-            ),
-        colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = backgroundColor,
-            contentColor = contentColor,
-            disabledContainerColor = backgroundColor,
-            disabledContentColor = contentColor.copy(alpha = 0.6f)
-        ),
+            .height(50.dp),
+        colors = ButtonDefaults.outlinedButtonColors(),
         shape = RoundedCornerShape(cornerRadius.dp),
         border = null
     ) {

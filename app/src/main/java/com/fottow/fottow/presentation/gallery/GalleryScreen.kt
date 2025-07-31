@@ -24,10 +24,8 @@ import androidx.navigation.NavController
 import com.fottow.fottow.presentation.navigation.navigateToImageViewer
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.widgets.ErrorView
-import com.fottow.fottow.presentation.widgets.FTopBar
 import com.fottow.fottow.presentation.widgets.ImageCustom
 import com.fottow.fottow.presentation.widgets.Loader
-import com.fottow.fottow.presentation.widgets.ScreenContainer
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -60,34 +58,32 @@ fun GalleryScreen(
         }
     }
 
-    ScreenContainer(
-        topBar = { FTopBar() }
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(4),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(AppTheme.Spacing.S)
     ) {
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(4),
-            modifier = Modifier.fillMaxSize().padding(AppTheme.Spacing.S)
-        ) {
-            if (error.not()) {
-                items(items = result, key = {it.url}) {
-                    ImageCustom(
-                        modifier = Modifier
-                            .padding(AppTheme.Spacing.XXS)
-                            .size(height = 100.dp, width = 100.dp)
-                            .clip(RoundedCornerShape(AppTheme.Spacing.XS))
-                            .clickable {
-                                navController.navigateToImageViewer(it.url, result)
-                            },
-                        imageUrl = it.url
-                    )
-                }
-            } else {
-                item {
-                    ErrorView(modifier = Modifier.fillMaxWidth()) {}
-                }
+        if (error.not()) {
+            items(items = result, key = { it.url }) {
+                ImageCustom(
+                    modifier = Modifier
+                        .padding(AppTheme.Spacing.XXS)
+                        .size(height = 100.dp, width = 100.dp)
+                        .clip(RoundedCornerShape(AppTheme.Spacing.XS))
+                        .clickable {
+                            navController.navigateToImageViewer(it.url, result)
+                        },
+                    imageUrl = it.url
+                )
             }
-
-            if (loading)
-                item { Loader() }
+        } else {
+            item {
+                ErrorView(modifier = Modifier.fillMaxWidth()) {}
+            }
         }
+
+        if (loading)
+            item { Loader() }
     }
 }

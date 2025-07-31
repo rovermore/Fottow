@@ -76,16 +76,18 @@ fun UploadScreen(
         } ?: viewModel.selectImage(cameraPhotoUri)
     }
 
-    val pickPicture = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
-        if (imageUri != Uri.EMPTY) {
-            lastImageUri = imageUri
-            startUploadService()
+    val pickPicture =
+        rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
+            if (imageUri != Uri.EMPTY) {
+                lastImageUri = imageUri
+                startUploadService()
+            }
         }
-    }
 
-    val takePhoto = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { saved ->
-        if (saved && cameraPhotoUri != Uri.EMPTY) viewModel.selectImage(cameraPhotoUri)
-    }
+    val takePhoto =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { saved ->
+            if (saved && cameraPhotoUri != Uri.EMPTY) viewModel.selectImage(cameraPhotoUri)
+        }
 
     val cameraPermission = Manifest.permission.CAMERA
     val cameraPermissionLauncher = rememberLauncherForActivityResult(
@@ -102,49 +104,47 @@ fun UploadScreen(
         }
     )
 
-    ScreenContainer(
-        topBar = { FTopBar {} }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(AppTheme.Spacing.L)
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(AppTheme.Spacing.L)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            PrimaryButton(
-                text = "Take photo",
-                onClick = {
-                    val values = ContentValues()
-                    values.put(MediaStore.Images.Media.TITLE, "Back Picture")
-                    values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-                    cameraPhotoUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                    cameraPermissionState.launchPermissionRequest()
-                }
-            )
-
-            SecondaryButton(
-                text = "Pick from device",
-                onClick = {
-                    pickPicture.launch("image/*")
-                }
-            )
-
-            if (onError) {
-                ErrorView { startUploadService() }
+        PrimaryButton(
+            text = "Take photo",
+            onClick = {
+                val values = ContentValues()
+                values.put(MediaStore.Images.Media.TITLE, "Back Picture")
+                values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+                cameraPhotoUri = context.contentResolver.insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    values
+                )
+                cameraPermissionState.launchPermissionRequest()
             }
+        )
 
+        SecondaryButton(
+            text = "Pick from device",
+            onClick = {
+                pickPicture.launch("image/*")
+            }
+        )
+
+        if (onError) {
+            ErrorView { startUploadService() }
         }
 
-        if (updateSuccessful) {
-            FDialog("La foto se ha subido correctamente") { viewModel.dialogDismissed() }
-        }
+    }
 
-        if (isLoading) {
-            Loader()
-        }
+    if (updateSuccessful) {
+        FDialog("La foto se ha subido correctamente") { viewModel.dialogDismissed() }
+    }
 
+    if (isLoading) {
+        Loader()
     }
 }
 
@@ -152,7 +152,7 @@ fun UploadScreen(
 fun FDialog(
     message: String,
     onDismissRequest: () -> Unit
-    ) {
+) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier

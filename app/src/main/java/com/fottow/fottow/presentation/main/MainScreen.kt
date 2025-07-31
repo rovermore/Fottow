@@ -23,9 +23,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.profile.ProfileScreen
-import com.fottow.fottow.presentation.theme.White
 import com.fottow.fottow.presentation.upload.UploadScreen
 import com.fottow.fottow.presentation.widgets.ScreenContainer
+import com.fottow.fottow.presentation.widgets.FTopBar
 
 @Composable
 fun MainScreen(
@@ -34,12 +34,23 @@ fun MainScreen(
     var screenSelected by rememberSaveable(stateSaver = ScreenSelectedSaver) {
         mutableStateOf<ScreenSelected>(ScreenSelected.Gallery)
     }
+    // Acción logout que se inyecta dinámicamente desde ProfileScreen
+    var onProfileLogout by androidx.compose.runtime.remember { mutableStateOf<() -> Unit>({}) }
 
     ScreenContainer(
+        topBar = {
+            when (screenSelected) {
+                is ScreenSelected.Gallery -> FTopBar()
+                is ScreenSelected.Upload -> FTopBar { }
+                is ScreenSelected.Profile -> FTopBar(
+                    icon = com.fottow.fottow.R.drawable.ic_logout
+                ) {
+                    onProfileLogout()
+                }
+            }
+        },
         bottomBar = {
-            BottomAppBar(
-                modifier = Modifier.background(White)
-            ) {
+            BottomAppBar {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
@@ -81,7 +92,10 @@ fun MainScreen(
         when(screenSelected) {
             is ScreenSelected.Gallery -> GalleryScreen(navController = navController)
             is ScreenSelected.Upload -> UploadScreen(navController = navController)
-            else -> ProfileScreen(navController = navController)
+            is ScreenSelected.Profile -> ProfileScreen(
+                navController = navController,
+                setLogoutAction = { onProfileLogout = it }
+            )
         }
     }
 }
