@@ -78,7 +78,11 @@ fun RegisterScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text(text = "Crea tu cuenta", style = MaterialTheme.typography.headlineMedium)
+            Text(
+                text = "Crea tu cuenta",
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.headlineMedium
+            )
 
             CustomTextField(
                 value = nickName,

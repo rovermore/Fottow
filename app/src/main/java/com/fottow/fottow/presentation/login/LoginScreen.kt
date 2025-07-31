@@ -77,7 +77,10 @@ fun LoginScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text(text = "Iniciar Sesión", style = MaterialTheme.typography.headlineMedium)
+            Text(
+                text = "Iniciar Sesión",
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.headlineMedium)
 
             CustomTextField(
                 value = email,

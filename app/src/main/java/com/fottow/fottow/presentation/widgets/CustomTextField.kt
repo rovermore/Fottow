@@ -39,10 +39,10 @@ fun CustomTextField(
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
-    borderColor: Color = Color(0xFF4A80B8),
+    borderColor: Color = MaterialTheme.colorScheme.secondary,
     backgroundColor: Color = Color.White,
     textColor: Color = Color.Black,
-    labelColor: Color = Color(0xFF4A80B8),
+    labelColor: Color = MaterialTheme.colorScheme.secondary,
     placeholderColor: Color = Color.Gray,
     cornerRadius: Int = 12
 ) {
@@ -61,10 +61,6 @@ fun CustomTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(
-                    color = backgroundColor,
-                    shape = RoundedCornerShape(cornerRadius.dp)
-                )
                 .border(
                     width = 1.dp,
                     color = if (enabled) borderColor else borderColor.copy(alpha = 0.6f),
