@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 class TopBarColors {
     @OptIn(ExperimentalMaterial3Api::class)
     val colors @Composable get() =  TopAppBarColors(
-    containerColor = Primary,
-    actionIconContentColor = White,
-    navigationIconContentColor = White,
-    scrolledContainerColor = White,
-    titleContentColor = White
+    containerColor = MaterialTheme.colorScheme.primaryContainer,
+    actionIconContentColor = MaterialTheme.colorScheme.onTertiary,
+    navigationIconContentColor = MaterialTheme.colorScheme.onTertiary,
+    scrolledContainerColor = MaterialTheme.colorScheme.onTertiary,
+    titleContentColor = MaterialTheme.colorScheme.onTertiary
     )
 }
