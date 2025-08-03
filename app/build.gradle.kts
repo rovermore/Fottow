@@ -17,7 +17,7 @@ android {
         applicationId = "com.fottow.fottow"
         minSdk = 24
         targetSdk = 35
-        versionCode = 25073103
+        versionCode = 25080302
         versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -27,12 +27,26 @@ android {
     }
 
     buildTypes {
+        debug {
+            // BuildConfig.DEBUG será true en debug
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+    }
+    flavorDimensions += "tier"
+    productFlavors {
+        create("pre") {
+            dimension = "tier"
+            applicationIdSuffix = ".pre"
+            versionNameSuffix = "-pre"
+        }
+        create("pro") {
+            dimension = "tier"
         }
     }
     compileOptions {
