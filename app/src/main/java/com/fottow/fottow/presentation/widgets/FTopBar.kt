@@ -41,7 +41,8 @@ fun FTopBar(
             Text(
                 text = "Fottow",
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         },
         actions = {
@@ -61,7 +62,7 @@ fun FTopBar(
                         Icon(
                             painter = painterResource(id = icon),
                             contentDescription = "shopping cart",
-                            tint = MaterialTheme.colorScheme.onTertiary
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     }
 

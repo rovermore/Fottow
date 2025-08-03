@@ -74,7 +74,7 @@ fun CustomTextField(
                 onValueChange = onValueChange,
                 enabled = enabled,
                 textStyle = TextStyle(
-                    color = if (enabled) textColor else textColor.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.secondary,
                     fontSize = 16.sp
                 ),
                 keyboardOptions = keyboardOptions,

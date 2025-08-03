@@ -9,9 +9,9 @@ class TopBarColors {
     @OptIn(ExperimentalMaterial3Api::class)
     val colors @Composable get() =  TopAppBarColors(
     containerColor = MaterialTheme.colorScheme.primaryContainer,
-    actionIconContentColor = MaterialTheme.colorScheme.onTertiary,
-    navigationIconContentColor = MaterialTheme.colorScheme.onTertiary,
-    scrolledContainerColor = MaterialTheme.colorScheme.onTertiary,
-    titleContentColor = MaterialTheme.colorScheme.onTertiary
+    actionIconContentColor = MaterialTheme.colorScheme.onPrimary,
+    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+    scrolledContainerColor = MaterialTheme.colorScheme.onPrimary,
+    titleContentColor = MaterialTheme.colorScheme.onPrimary
     )
 }
