@@ -19,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.fottow.fottow.presentation.theme.ColorError
 
 @Composable
 fun CustomTextField(
@@ -44,7 +46,10 @@ fun CustomTextField(
     textColor: Color = Color.Black,
     labelColor: Color = MaterialTheme.colorScheme.secondary,
     placeholderColor: Color = Color.Gray,
-    cornerRadius: Int = 12
+    cornerRadius: Int = 12,
+    isValid: Boolean = true,
+    errorMessage: String = "",
+    isTouched: (Boolean) -> Unit = {}
 ) {
     Column(modifier = modifier) {
         if (label.isNotEmpty()) {
@@ -80,16 +85,21 @@ fun CustomTextField(
                 keyboardOptions = keyboardOptions,
                 visualTransformation = visualTransformation,
                 cursorBrush = SolidColor(borderColor),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged { focusState ->
+                        isTouched(focusState.isFocused)
+                    }
             )
 
-            if (value.text.isEmpty() && placeholder.isNotEmpty()) {
-                Text(
-                    text = placeholder,
-                    color = placeholderColor,
-                    fontSize = 16.sp
-                )
-            }
+        }
+        if (!isValid && errorMessage.isNotEmpty()) {
+            Text(
+                modifier = Modifier.padding(top = 8.dp),
+                text = errorMessage,
+                color = ColorError,
+                fontSize = 12.sp
+            )
         }
     }
 }
@@ -120,6 +130,15 @@ private fun CustomTextFieldPreview() {
                 onValueChange = { password = it },
                 label = "Contraseña",
                 placeholder = "Ingresa tu contraseña"
+            )
+
+            CustomTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = "Contraseña",
+                placeholder = "Ingresa tu contraseña",
+                isValid = false,
+                errorMessage = "Contraseña incorrecta"
             )
         }
     }

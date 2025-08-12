@@ -17,3 +17,5 @@ val BackgroundLight = Color(0xFFFFFBFE)
 val BackgroundDark = Color.DarkGray
 
 val White = Color(0xFFFFFFFF)
+
+val ColorError = Color.Red

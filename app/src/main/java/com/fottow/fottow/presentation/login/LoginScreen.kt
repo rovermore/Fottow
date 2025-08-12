@@ -22,13 +22,17 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.presentation.isValidEmail
+import com.fottow.fottow.presentation.isValidPassword
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.navigation.RegisterScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.widgets.CustomTextField
+import com.fottow.fottow.presentation.widgets.EmailTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.FTopBar
+import com.fottow.fottow.presentation.widgets.PasswordTextField
 import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.fottow.fottow.presentation.widgets.SecondaryButton
@@ -64,25 +68,22 @@ fun LoginScreen(
             Text(
                 text = "Iniciar Sesión",
                 color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.headlineMedium)
-
-            CustomTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = "Correo electrónico",
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                style = MaterialTheme.typography.headlineMedium
             )
 
-            CustomTextField(
+            EmailTextField(
+                value = email,
+                onValueChange = { email = it },
+            )
+
+            PasswordTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = "Contraseña",
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
 
             PrimaryButton(
                 text = "Log in",
+                enabled = email.text.isValidEmail() && password.text.isValidPassword(),
                 onClick = {
                     viewModel.logUser(email.text, password.text)
                 }

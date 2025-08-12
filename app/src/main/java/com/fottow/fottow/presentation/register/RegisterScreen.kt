@@ -22,11 +22,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.presentation.isValidEmail
+import com.fottow.fottow.presentation.isValidPassword
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.widgets.CustomTextField
+import com.fottow.fottow.presentation.widgets.EmailTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.FTopBar
+import com.fottow.fottow.presentation.widgets.PasswordTextField
 import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import org.koin.androidx.compose.koinViewModel
@@ -70,28 +74,24 @@ fun RegisterScreen(
                 onValueChange = { nickName = it },
                 label = "Nombre de usuario",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                isValid = email.text.isValidEmail()
+
             )
 
-            CustomTextField(
+            EmailTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = "Correo electrónico",
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                modifier = Modifier.fillMaxWidth()
             )
 
-            CustomTextField(
+            PasswordTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = "Contraseña",
-                visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                modifier = Modifier.fillMaxWidth()
             )
 
             PrimaryButton(
                 text = "Sign up",
+                enabled = email.text.isValidEmail() && password.text.isValidPassword(),
                 onClick = {
                     viewModel.registerUser(email.text, password.text, nickName.text)
                 }
