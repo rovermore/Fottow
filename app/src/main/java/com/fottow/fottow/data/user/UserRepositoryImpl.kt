@@ -41,8 +41,13 @@ class UserRepositoryImpl(
         return userNetworkDatasource.userRegister(user, password, nickName)
             .map {
                 userLocalDatasource.setToken(it.token)
-                userLocalDatasource.setName(nickName)
-                userLocalDatasource.setEmail(user)
+                userLocalDatasource.setUser(
+                    User(
+                        email = user,
+                        name = nickName,
+                        profileImage = ""
+                    )
+                )
                 true
             }
             .mapFailure {

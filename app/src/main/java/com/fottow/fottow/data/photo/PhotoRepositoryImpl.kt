@@ -1,6 +1,7 @@
 package com.fottow.fottow.data.photo
 
 import com.fottow.fottow.data.base.APIErrorMapper
+import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Failure
 import com.fottow.fottow.domain.base.Result
@@ -13,6 +14,7 @@ import com.fottow.fottow.domain.photo.repository.PhotoRepository
 class PhotoRepositoryImpl(
     private val photoNetworkDatasource: PhotoNetworkDatasource,
     private val photoLocalDatasource: PhotoLocalDatasource,
+    private val userLocalDatasource: UserLocalDatasource,
     private val apiErrorMapper: APIErrorMapper
 ): PhotoRepository {
     override suspend fun uploadPhoto(imagePath: String): Result<UploadPhotoResponse, Error> {
@@ -23,6 +25,13 @@ class PhotoRepositoryImpl(
 
     override suspend fun uploadIdentificationSelfie(imagePath: String): Result<UploadPhotoResponse, Error> {
         return photoNetworkDatasource.uploadIdentificationSelfie(imagePath)
+            .map { response ->
+                userLocalDatasource.getUser()
+                    .map {
+                        userLocalDatasource.setUser(it.copy(profileImage = response.imageUrl))
+                    }
+                response
+            }
             .mapFailure {
                 apiErrorMapper.map(it)
             }
