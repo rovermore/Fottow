@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
+import com.fottow.fottow.R
 import com.fottow.fottow.presentation.isValidPassword
 
 @Composable
@@ -20,16 +22,19 @@ fun PasswordTextField(
 ) {
 
     var isTouched by remember { mutableStateOf(false) }
+    var isPasswordVisible by remember { mutableStateOf(false) }
 
     CustomTextField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
         label = "Contraseña",
-        visualTransformation = PasswordVisualTransformation(),
+        visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         isTouched = { isTouched = true },
         isValid = value.text.isValidPassword(),
         errorMessage = if (isTouched && value.text.length > 5) "La contraseña debe tener al menos 8 caracteres alfanumericos y un caracter especial" else "",
+        icon = R.drawable.ic_eye,
+        onIconClicked = { isPasswordVisible = !isPasswordVisible }
     )
 }
