@@ -1,6 +1,7 @@
 package com.fottow.fottow.data.base
 
 import android.util.Log
+import com.fottow.fottow.BuildConfig
 import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.get
 import com.gyanoba.inspektor.Inspektor
@@ -24,15 +25,19 @@ class FottowKtorClient(
                 json()
             }
             install(Logging) {
-                logger = object : Logger {
-                    override fun log(message: String) {
-                        Log.d("KtorClient", message)
+                if (BuildConfig.DEBUG) {
+                    logger = object : Logger {
+                        override fun log(message: String) {
+                            Log.d("KtorClient", message)
+                        }
                     }
+                    level = LogLevel.ALL
                 }
-                level = LogLevel.ALL
             }
              install(Inspektor) {
-                 level = com.gyanoba.inspektor.LogLevel.BODY
+                 if (BuildConfig.DEBUG) {
+                     level = com.gyanoba.inspektor.LogLevel.BODY
+                 }
              }
             install(Auth) {
                 bearer {
