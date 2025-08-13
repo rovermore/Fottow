@@ -18,7 +18,8 @@ import com.fottow.fottow.presentation.isValidPassword
 fun PasswordTextField(
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    showError: Boolean = true
 ) {
 
     var isTouched by remember { mutableStateOf(false) }
@@ -33,7 +34,7 @@ fun PasswordTextField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         isTouched = { isTouched = true },
         isValid = value.text.isValidPassword(),
-        errorMessage = if (isTouched && value.text.length > 5) "La contraseña debe tener al menos 8 caracteres alfanumericos y un caracter especial" else "",
+        errorMessage = if (isTouched && value.text.length > 5 && showError) "La contraseña debe tener al menos 8 caracteres alfanumericos y un caracter especial" else "",
         icon = R.drawable.ic_eye,
         onIconClicked = { isPasswordVisible = !isPasswordVisible }
     )

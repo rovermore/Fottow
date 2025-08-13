@@ -79,11 +79,12 @@ fun LoginScreen(
             PasswordTextField(
                 value = password,
                 onValueChange = { password = it },
+                showError = false
             )
 
             PrimaryButton(
                 text = "Log in",
-                enabled = email.text.isValidEmail() && password.text.isValidPassword(),
+                enabled = email.text.isValidEmail(),
                 onClick = {
                     viewModel.logUser(email.text, password.text)
                 }
