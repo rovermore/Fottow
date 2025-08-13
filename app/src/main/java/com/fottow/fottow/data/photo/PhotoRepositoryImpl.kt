@@ -38,18 +38,11 @@ class PhotoRepositoryImpl(
     }
 
     override suspend fun getImages(): Result<List<FottowImage>, Error> {
-        val result = photoNetworkDatasource.getImages()
+        return photoNetworkDatasource.getImages()
             .map {
-                photoLocalDatasource.savePhotos(it.images)
                 it.images
             }.mapFailure {
                 apiErrorMapper.map(it)
             }
-        return when (result) {
-            is Success -> result
-            is Failure -> {
-                photoLocalDatasource.getPhotos()
-            }
-        }
     }
 }

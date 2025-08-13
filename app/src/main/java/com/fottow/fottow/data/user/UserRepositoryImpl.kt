@@ -63,8 +63,7 @@ class UserRepositoryImpl(
         return userNetworkDatasource.logout()
             .map {
                 userLocalDatasource.deleteToken()
-                userLocalDatasource.deleteEmail()
-                userLocalDatasource.deleteName()
+                userLocalDatasource.deleteUser()
                 true
             }
             .mapFailure {
