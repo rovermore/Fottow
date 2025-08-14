@@ -46,6 +46,21 @@ class FileResolver(private val context: Context) {
         }
     }
 
+    fun copyUriToTempFile(uri: Uri, fileName: String): File? {
+        return try {
+            val tempFile = File(context.cacheDir, fileName)
+            context.contentResolver.openInputStream(uri)?.use { input ->
+                FileOutputStream(tempFile).use { output ->
+                    input.copyTo(output)
+                }
+            }
+            tempFile
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
     fun getRealPathFromUri(uri: Uri): String? {
         // DocumentProvider
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, uri)) {

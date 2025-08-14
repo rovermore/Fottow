@@ -52,9 +52,10 @@ class UploadPhotoService : Service() {
 
         scope.launch {
             imageUri?.let {
-                val imagePath = fileResolver.getRealPathFromUri(it)
-                if (imagePath != null) {
-                    updatePhotoUseCase.uploadPhoto(imagePath)
+                val fileName = "upload_${System.currentTimeMillis()}.jpg"
+                val tempFile = fileResolver.copyUriToTempFile(imageUri, fileName)
+                if (tempFile != null) {
+                    updatePhotoUseCase.uploadPhoto(tempFile.absolutePath)
                         .map {
                             showResultNotification("Foto subida exitosamente", true)
                             UploadResultManager.emitResult(UploadResult(true, null))
