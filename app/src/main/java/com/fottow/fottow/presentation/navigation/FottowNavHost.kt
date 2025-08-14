@@ -39,13 +39,15 @@ fun NavController.navigateToImageViewer(imageUrl: String, photos:List<FottowImag
 }
 
 @Composable
-fun FottowNavHost() {
+fun FottowNavHost(
+    isSharedPhoto: Boolean = false
+) {
 
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = SplashScreen) {
         composable(SplashScreen) { SplashScreen(navController = navController) }
-        composable(MainScreen) { MainScreen(navController = navController) }
+        composable(MainScreen) { MainScreen(navController = navController, isSharedPhoto = isSharedPhoto) }
         animatedComposable(LoginScreen) { LoginScreen(navController = navController) }
         animatedComposable(RegisterScreen) { RegisterScreen(navController = navController) }
         animatedComposable(IdentificationScreen) { IdentificationScreen(navController = navController) }

@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FottowTheme {
                 KoinAndroidContext {
-                    FottowNavHost()
+                    FottowNavHost(isSharedPhoto = pendingShareUri != null)
                 }
             }
         }
