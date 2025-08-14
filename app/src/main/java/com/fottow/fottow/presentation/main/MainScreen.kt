@@ -29,12 +29,17 @@ import com.fottow.fottow.presentation.widgets.FTopBar
 
 @Composable
 fun MainScreen(
-    navController: NavController
+    navController: NavController,
+    isSharedPhoto: Boolean = false
 ) {
     var screenSelected by rememberSaveable(stateSaver = ScreenSelectedSaver) {
         mutableStateOf<ScreenSelected>(ScreenSelected.Gallery)
     }
-    // Acción logout que se inyecta dinámicamente desde ProfileScreen
+
+    if (isSharedPhoto) {
+        screenSelected = ScreenSelected.Upload
+    }
+
     var onProfileLogout by androidx.compose.runtime.remember { mutableStateOf<() -> Unit>({}) }
 
     ScreenContainer(
