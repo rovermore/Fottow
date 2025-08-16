@@ -12,6 +12,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -33,6 +34,7 @@ import com.fottow.fottow.presentation.theme.AppTheme
 fun FTopBar(
     hasNotifications: Boolean = false,
     @DrawableRes icon: Int? = null,
+    scrollBehavior: TopAppBarScrollBehavior? = null,
     onIconClicked: () -> Unit = { },
     ) {
     TopAppBar(
@@ -80,10 +82,12 @@ fun FTopBar(
                 }
 
             }
-        }
+        },
+        scrollBehavior = scrollBehavior
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(widthDp = 340, showBackground = true, backgroundColor = 0xFFFFFF)
 @Composable
 private fun AppBarPreview() {

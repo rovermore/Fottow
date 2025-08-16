@@ -8,33 +8,37 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.isValidEmail
 import com.fottow.fottow.presentation.isValidPassword
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
+import com.fottow.fottow.presentation.navigation.TermsAndConditionsScreen
 import com.fottow.fottow.presentation.theme.AppTheme
+import com.fottow.fottow.presentation.utils.TextFieldValueSaver
 import com.fottow.fottow.presentation.widgets.CustomTextField
 import com.fottow.fottow.presentation.widgets.EmailTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.FTopBar
+import com.fottow.fottow.presentation.widgets.FottowCheckBox
 import com.fottow.fottow.presentation.widgets.PasswordTextField
 import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel = koinViewModel<RegisterViewModel>(),
@@ -44,9 +48,11 @@ fun RegisterScreen(
     val register by viewModel.register.collectAsStateWithLifecycle()
     val error by viewModel.error.collectAsStateWithLifecycle()
 
-    var email by remember { mutableStateOf(TextFieldValue("")) }
-    var password by remember { mutableStateOf(TextFieldValue("")) }
-    var nickName by remember { mutableStateOf(TextFieldValue("")) }
+    var email by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
+    var password by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
+    var nickName by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
+
+    var isTermsAndConditionsChecked by rememberSaveable { mutableStateOf(false) }
 
     ScreenContainer(
         topBar = { FTopBar() }
@@ -89,9 +95,18 @@ fun RegisterScreen(
                 onValueChange = { password = it },
             )
 
+            FottowCheckBox(
+                text = "Acepto los términos y condiciones",
+                checked = isTermsAndConditionsChecked,
+                onCheckedChange = { isTermsAndConditionsChecked = it }
+            ) {
+                navController.navigate(TermsAndConditionsScreen)
+            }
+
             PrimaryButton(
                 text = "Sign up",
-                enabled = email.text.isValidEmail() && password.text.isValidPassword(),
+                enabled = email.text.isValidEmail() && password.text.isValidPassword()
+                && isTermsAndConditionsChecked && nickName.text.isNotEmpty(),
                 onClick = {
                     viewModel.registerUser(email.text, password.text, nickName.text)
                 }

@@ -62,7 +62,7 @@ fun GalleryScreen(
         columns = GridCells.Fixed(4),
         modifier = Modifier
             .fillMaxSize()
-            .padding(AppTheme.Spacing.S)
+            .padding(horizontal = AppTheme.Spacing.S)
     ) {
         if (error.not()) {
             items(items = result, key = { it.url }) {

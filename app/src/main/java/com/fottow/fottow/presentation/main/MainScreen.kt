@@ -9,9 +9,12 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,6 +30,7 @@ import com.fottow.fottow.presentation.upload.UploadScreen
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.fottow.fottow.presentation.widgets.FTopBar
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     navController: NavController,
@@ -41,11 +45,12 @@ fun MainScreen(
     }
 
     var onProfileLogout by androidx.compose.runtime.remember { mutableStateOf<() -> Unit>({}) }
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     ScreenContainer(
         topBar = {
             when (screenSelected) {
-                is ScreenSelected.Gallery -> FTopBar()
+                is ScreenSelected.Gallery -> FTopBar(scrollBehavior = scrollBehavior)
                 is ScreenSelected.Upload -> FTopBar { }
                 is ScreenSelected.Profile -> FTopBar(
                     icon = com.fottow.fottow.R.drawable.ic_logout
