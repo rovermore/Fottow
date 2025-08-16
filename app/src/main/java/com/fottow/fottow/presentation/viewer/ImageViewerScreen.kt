@@ -1,11 +1,14 @@
 package com.fottow.fottow.presentation.viewer
 
+import android.app.Activity
+import android.view.WindowManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +29,22 @@ fun ImageViewerScreen(
     photos: List<FottowImage>,
     navController: NavController
 ) {
+
+    val context = LocalContext.current
+    val window = (context as? Activity)?.window
+
+    DisposableEffect(Unit) {
+        // Activar FLAG_SECURE al entrar
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
+
+        onDispose {
+            // Quitar FLAG_SECURE al salir
+            window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }
+    }
 
     val pagerState = rememberPagerState(
         initialPage = photos.indexOfFirst { it.url == imageUrl },
