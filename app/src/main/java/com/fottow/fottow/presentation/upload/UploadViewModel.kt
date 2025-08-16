@@ -50,9 +50,9 @@ class UploadViewModel(
         }
     }
 
-    val isRegisterFinished: StateFlow<Boolean> = flow {
+    val goToIdentificationScreen: StateFlow<Boolean> = flow {
         userUseCase.getUser().map {
-            emit(it.profileImage.isNotEmpty())
+            emit(it.profileImage.isEmpty())
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 

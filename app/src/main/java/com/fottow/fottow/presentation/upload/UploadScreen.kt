@@ -8,7 +8,6 @@ import android.net.Uri
 import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +18,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,20 +34,15 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.UploadPhotoService
-import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.theme.AppTheme
-import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.ErrorView
-import com.fottow.fottow.presentation.widgets.FTopBar
 import com.fottow.fottow.presentation.widgets.Loader
 import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.SecondaryButton
-import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import org.koin.androidx.compose.koinViewModel
-import org.koin.compose.koinInject
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
@@ -62,7 +55,7 @@ fun UploadScreen(
     val updateSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
     val onError by viewModel.onError.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
-    val isRegisterFinished by viewModel.isRegisterFinished.collectAsStateWithLifecycle()
+    val goToIdentificationScreen by viewModel.goToIdentificationScreen.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
@@ -78,7 +71,7 @@ fun UploadScreen(
         } ?: viewModel.selectImage(cameraPhotoUri)
     }
 
-    if (isRegisterFinished.not()) {
+    if (goToIdentificationScreen) {
         navController.navigate(IdentificationScreen)
     }
 
