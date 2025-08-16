@@ -37,6 +37,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.UploadPhotoService
 import com.fottow.fottow.presentation.navigation.GalleryScreen
+import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.theme.Typography
 import com.fottow.fottow.presentation.widgets.ErrorView
@@ -61,6 +62,7 @@ fun UploadScreen(
     val updateSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
     val onError by viewModel.onError.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
+    val isRegisterFinished by viewModel.isRegisterFinished.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
@@ -74,6 +76,10 @@ fun UploadScreen(
             }
             ContextCompat.startForegroundService(context, intent)
         } ?: viewModel.selectImage(cameraPhotoUri)
+    }
+
+    if (isRegisterFinished.not()) {
+        navController.navigate(IdentificationScreen)
     }
 
     val pickPicture =

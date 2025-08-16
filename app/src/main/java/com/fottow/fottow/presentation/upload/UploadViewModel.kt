@@ -8,15 +8,20 @@ import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.base.then
 import com.fottow.fottow.domain.photo.usecase.PhotoUseCase
+import com.fottow.fottow.domain.user.usecase.UserUseCase
 import com.fottow.fottow.presentation.UploadResultManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class UploadViewModel(
     private val fileResolver: FileResolver,
     private val updatePhotoUseCase: PhotoUseCase,
+    private val userUseCase: UserUseCase
 ): ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
@@ -44,6 +49,12 @@ class UploadViewModel(
             }
         }
     }
+
+    val isRegisterFinished: StateFlow<Boolean> = flow {
+        userUseCase.getUser().map {
+            emit(it.profileImage.isNotEmpty())
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
 
     fun selectImage(uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
