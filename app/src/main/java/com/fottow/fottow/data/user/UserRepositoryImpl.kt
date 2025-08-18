@@ -77,10 +77,12 @@ class UserRepositoryImpl(
     }
 
     override suspend fun isFirstInstall(): Result<Boolean, Error> {
-        return userLocalDatasource.isFirstInstall()
-            .mapFailure {
-                userLocalDatasource.setFirstInstall()
-                it
-            }
+        val result = userLocalDatasource.isFirstInstall()
+        return if (result is Success) {
+            result
+        } else {
+            userLocalDatasource.setFirstInstall()
+            Success(true)
+        }
     }
 }

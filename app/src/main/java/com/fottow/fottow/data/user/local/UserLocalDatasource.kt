@@ -25,8 +25,18 @@ class UserLocalDatasource(
     fun getToken(): Result<String, Error> {
         return when (val result = dataStore.read<String>(TOKEN_KEY)) {
             is Success -> {
-                val decryptedToken = Crypto.decrypt(Base64.getDecoder().decode(result.value))
-                Success(decryptedToken)
+                val encodedToken = result.value
+                if (encodedToken.isNullOrEmpty()) {
+                    Failure(Error.UncompletedOperation("No token found"))
+                } else {
+                    try {
+                        val decryptedToken =
+                            Crypto.decrypt(Base64.getDecoder().decode(encodedToken))
+                        Success(decryptedToken)
+                    } catch (e: Exception) {
+                        Failure(Error.UncompletedOperation("Token corrupt or invalid"))
+                    }
+                }
             }
             is Failure -> Failure(result.reason)
         }
@@ -67,7 +77,10 @@ class UserLocalDatasource(
     }
 
     fun isFirstInstall(): Result<Boolean, Error> {
-        return dataStore.read<Boolean>(FIRST_INSTALL_KEY)
+        return when (val result = dataStore.read<Boolean>(FIRST_INSTALL_KEY)) {
+            is Success -> result
+            is Failure -> Success(true)
+        }
     }
 
     fun setFirstInstall() {
