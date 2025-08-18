@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -65,7 +67,9 @@ fun OnboardingScreen(
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier
+                    .weight(1f)
+                    .verticalScroll(rememberScrollState())
             ) {
                 Text(
                     text = onboardingPages[currentPage].title,
@@ -75,7 +79,7 @@ fun OnboardingScreen(
                 Image(
                     painter = painterResource(id = onboardingPages[currentPage].image),
                     contentDescription = null,
-                    modifier = Modifier.padding(horizontal = 48.dp, vertical = 44.dp)
+                    modifier = Modifier.padding(horizontal = 48.dp, vertical = 24.dp)
                 )
                 Text(
                     text = onboardingPages[currentPage].description,
