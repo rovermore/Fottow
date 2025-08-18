@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -43,16 +44,16 @@ fun OnboardingScreen(
         OnboardingPage(
             image = R.drawable.onboarding_image_2,
             title = "Súbela a Fottow",
-            description = "Comparte tus fotos a través de Fottow.\nSube tus fotos con familiares y amigos a la app",
+            description = "Comparte tus fotos a través de Fottow.\nSube tus fotos con familiares y amigos a la app.",
         ),
         OnboardingPage(
             image = R.drawable.onboarding_image_3,
             title = "Se comparte sola",
-            description = "Tus fotos se comparten automáticamente solo con las personas que aparecen en la foto. \n No tienes que hacer nada, fottow lo hace automáticamente por ti",
+            description = "Tus fotos se comparten automáticamente solo con las personas que aparecen en la foto. No tienes que hacer nada, fottow lo hace automáticamente por ti.",
         )
     )
 
-    var currentPage by remember { mutableStateOf(0) }
+    var currentPage by remember { mutableIntStateOf(0) }
 
     ScreenContainer {
         Column(

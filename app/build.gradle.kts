@@ -17,7 +17,7 @@ android {
         applicationId = "com.fottow.fottow"
         minSdk = 26
         targetSdk = 35
-        versionCode = 25081601
+        versionCode = 25081801
         versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
