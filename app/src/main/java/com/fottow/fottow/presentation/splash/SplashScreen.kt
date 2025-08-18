@@ -19,6 +19,7 @@ import androidx.navigation.NavController
 import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.navigation.LoginScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
+import com.fottow.fottow.presentation.navigation.OnBoardingScreen
 import com.fottow.fottow.presentation.theme.Primary
 import com.fottow.fottow.presentation.theme.Purple40
 import com.fottow.fottow.presentation.theme.White
@@ -30,17 +31,22 @@ fun SplashScreen(
     viewModel: SplashScreenViewModel = koinViewModel<SplashScreenViewModel>(),
     navController: NavController
 ) {
-    val isUserLoged by viewModel.isUserLogged.collectAsStateWithLifecycle()
-    val isLoading by viewModel.loading.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     val coroutineScope = rememberCoroutineScope()
 
-    LaunchedEffect(key1 = isUserLoged, key2 = isLoading) {
+    LaunchedEffect(key1 = state) {
         coroutineScope.launch {
-            if (isLoading.not()) {
-                if (isUserLoged)
+            if (state.loading.not()) {
+                if (state.isUserLogged)
                     navController.navigate(MainScreen)
-                if (!isUserLoged)
-                    navController.navigate(LoginScreen)
+                if (!state.isUserLogged) {
+                    if (state.isFirstInstall.not())
+                        navController.navigate(LoginScreen)
+                    else
+                        navController.navigate(OnBoardingScreen)
+
+                }
             }
         }
     }

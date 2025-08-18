@@ -11,4 +11,5 @@ interface UserRepository {
     suspend fun isUserLogged(): Result<String, Error>
     suspend fun logout(): Result<Boolean, Error>
     suspend fun getUser(): Result<User, Error>
+    suspend fun isFirstInstall(): Result<Boolean, Error>
 }

@@ -5,6 +5,7 @@ import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Failure
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.base.Success
+import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.user.model.User
 import kotlinx.serialization.json.Json
 import java.util.Base64
@@ -16,6 +17,7 @@ class UserLocalDatasource(
     companion object {
         const val TOKEN_KEY = "TOKEN_KEY"
         const val USER_KEY = "USER_KEY"
+        const val FIRST_INSTALL_KEY = "FIRST_INSTALL_KEY"
     }
 
     private val json = Json // singleton de kotlinx.serialization
@@ -62,5 +64,13 @@ class UserLocalDatasource(
 
     fun deleteUser() {
         dataStore.delete<String>(USER_KEY)
+    }
+
+    fun isFirstInstall(): Result<Boolean, Error> {
+        return dataStore.read<Boolean>(FIRST_INSTALL_KEY)
+    }
+
+    fun setFirstInstall() {
+        dataStore.save(FIRST_INSTALL_KEY, false)
     }
 }

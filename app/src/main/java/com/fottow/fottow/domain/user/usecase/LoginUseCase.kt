@@ -20,4 +20,8 @@ class LoginUseCase(
     suspend fun logout(): Result<Boolean, Error> {
         return userRepository.logout()
     }
+
+    suspend fun isFirstInstall(): Result<Boolean, Error> {
+        return userRepository.isFirstInstall()
+    }
 }

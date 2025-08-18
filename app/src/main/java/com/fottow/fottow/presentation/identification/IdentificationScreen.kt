@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ContentValues
 import android.net.Uri
 import android.provider.MediaStore
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -73,6 +74,8 @@ fun IdentificationScreen(
 
     ) {
         if (uploadSuccessful) navController.navigate(MainScreen)
+
+        BackHandler {}
 
         Column(
             modifier = Modifier

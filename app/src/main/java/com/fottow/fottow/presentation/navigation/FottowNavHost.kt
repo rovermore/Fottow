@@ -13,6 +13,7 @@ import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.identification.IdentificationScreen
 import com.fottow.fottow.presentation.login.LoginScreen
 import com.fottow.fottow.presentation.main.MainScreen
+import com.fottow.fottow.presentation.onboarding.OnboardingScreen
 import com.fottow.fottow.presentation.upload.UploadScreen
 import com.fottow.fottow.presentation.profile.ProfileScreen
 import com.fottow.fottow.presentation.register.RegisterScreen
@@ -32,6 +33,7 @@ const val IdentificationScreen = "IdentificationScreen"
 const val GalleryScreen = "GalleryScreen"
 const val ImageViewerScreen = "ImageViewerScreen"
 const val TermsAndConditionsScreen = "TermsAndConditionsScreen"
+const val OnBoardingScreen = "OnBoardingScreen"
 
 fun NavController.navigateToImageViewer(imageUrl: String, photos:List<FottowImage>) {
     val photosJson = URLEncoder.encode(Json.encodeToString(photos), "UTF-8")
@@ -53,6 +55,7 @@ fun FottowNavHost(
         animatedComposable(LoginScreen) { LoginScreen(navController = navController) }
         animatedComposable(RegisterScreen) { RegisterScreen(navController = navController) }
         animatedComposable(IdentificationScreen) { IdentificationScreen(navController = navController) }
+        animatedComposable(OnBoardingScreen) { OnboardingScreen(navController = navController)}
         animatedComposable(
             route = "$ImageViewerScreen?imageUrl={imageUrl}&photos={photos}",
             arguments = listOf(

@@ -23,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.profile.ProfileScreen
@@ -48,6 +49,7 @@ fun MainScreen(
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
     ScreenContainer(
+        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             when (screenSelected) {
                 is ScreenSelected.Gallery -> FTopBar(scrollBehavior = scrollBehavior)

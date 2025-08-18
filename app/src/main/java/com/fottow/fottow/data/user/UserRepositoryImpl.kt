@@ -3,6 +3,7 @@ package com.fottow.fottow.data.user
 import com.fottow.fottow.data.base.APIErrorMapper
 import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.domain.base.Error
+import com.fottow.fottow.domain.base.Failure
 import com.fottow.fottow.domain.base.Result
 import com.fottow.fottow.domain.base.Success
 import com.fottow.fottow.domain.base.getOrDefault
@@ -73,5 +74,13 @@ class UserRepositoryImpl(
 
     override suspend fun getUser(): Result<User, Error> {
         return userLocalDatasource.getUser()
+    }
+
+    override suspend fun isFirstInstall(): Result<Boolean, Error> {
+        return userLocalDatasource.isFirstInstall()
+            .mapFailure {
+                userLocalDatasource.setFirstInstall()
+                it
+            }
     }
 }
