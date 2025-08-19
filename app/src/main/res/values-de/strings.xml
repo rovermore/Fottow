@@ -27,4 +27,8 @@ Wir verwenden dieses Foto nur, um das Vektormuster zu erstellen, das es uns erm√
     <string name="login_title">Anmelden</string>
     <string name="log_in">Einloggen</string>
     <string name="register_action">Registriere dich</string>
+    <string name="password">Passwort</string>
+    <string name="email_label">E-Mail</string>
+    <string name="invalid_email">Ung√ºltige E-Mail</string>
+    <string name="invalid_password">Das Passwort muss mindestens 8 alphanumerische Zeichen haben</string>
 </resources>

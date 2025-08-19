@@ -27,4 +27,8 @@ Recuerda que solo utilizamos esta foto para generar el patrón vectorial que nos
     <string name="login_title">Iniciar sesión</string>
     <string name="log_in">Acceder</string>
     <string name="register_action">Regístrate</string>
+    <string name="password">Contraseña</string>
+    <string name="email_label">Correo electrónico</string>
+    <string name="invalid_email">Correo electrónico inválido</string>
+    <string name="invalid_password">La contraseña debe tener al menos 8 caracteres alfanuméricos</string>
 </resources>

@@ -7,8 +7,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import com.fottow.fottow.R
 import com.fottow.fottow.presentation.isValidEmail
 
 @Composable
@@ -24,11 +26,11 @@ fun EmailTextField(
         modifier = modifier,
         value = value,
         onValueChange = onValueChange,
-        label = "Correo electrónico",
+        label = stringResource(R.string.email_label),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
         isTouched = { isTouched = true },
         isValid = value.text.isValidEmail(),
-        errorMessage = if (isTouched && value.text.length > 5) "Correo electrónico no válido" else ""
+        errorMessage = if (isTouched && value.text.length > 5) stringResource(R.string.invalid_email) else ""
     )
 
 }

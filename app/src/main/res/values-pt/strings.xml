@@ -27,4 +27,8 @@ Lembre-se de que usaremos esta foto apenas para gerar o padrão vetorial que per
     <string name="login_title">Entrar</string>
     <string name="log_in">Entrar</string>
     <string name="register_action">Cadastre-se</string>
+    <string name="password">Senha</string>
+    <string name="email_label">Email</string>
+    <string name="invalid_email">E-mail inválido</string>
+    <string name="invalid_password">A senha deve ter pelo menos 8 caracteres alfanuméricos</string>
 </resources>
