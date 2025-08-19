@@ -111,7 +111,7 @@ fun CustomTextField(
         }
         if (!isValid && errorMessage.isNotEmpty()) {
             Text(
-                modifier = Modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = 2.dp),
                 text = errorMessage,
                 color = ColorError,
                 fontSize = 12.sp

@@ -58,10 +58,11 @@ class UploadViewModel(
 
     fun selectImage(uri: Uri?) {
         viewModelScope.launch(Dispatchers.IO) {
+            _onError.value = false
             _isLoading.value = true
             uri?.let {
                 val imagePath = fileResolver.getRealPathFromUri(it)
-                if (imagePath != null) {
+                if (!imagePath.isNullOrEmpty()) {
                     updatePhotoUseCase.uploadPhoto(imagePath)
                         .map {
                             _uploadSuccessful.value = true

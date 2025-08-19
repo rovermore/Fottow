@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -111,8 +114,21 @@ fun UploadScreen(
         verticalArrangement = Arrangement.spacedBy(AppTheme.Spacing.L),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Box(
+            modifier = Modifier.fillMaxWidth().weight(1f),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "Tu solo sube la foto, nostros la distribuiremos entre los protagonistas",
+                fontSize = 24.sp,
+                lineHeight = 32.sp,
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
         PrimaryButton(
-            text = "Take photo",
+            text = "Sacar foto",
             onClick = {
                 val values = ContentValues()
                 values.put(MediaStore.Images.Media.TITLE, "Back Picture")
@@ -126,14 +142,18 @@ fun UploadScreen(
         )
 
         SecondaryButton(
-            text = "Pick from device",
+            text = "Seleccionar del dispositivo",
             onClick = {
                 pickPicture.launch("image/*")
             }
         )
 
         if (onError) {
-            ErrorView { startUploadService() }
+            Dialog(
+                onDismissRequest = { viewModel.dialogDismissed() }
+            ) {
+                ErrorView { startUploadService() }
+            }
         }
 
     }

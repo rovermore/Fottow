@@ -5,7 +5,7 @@ fun String.isValidEmail(): Boolean {
 }
 
 fun String.isValidPassword(): Boolean {
-    return this.length >= 6 && containsDigit() && containsLetter()
+    return this.length >= 8 && containsDigit() && containsLetter()
 }
 
 private fun String.containsDigit(): Boolean {

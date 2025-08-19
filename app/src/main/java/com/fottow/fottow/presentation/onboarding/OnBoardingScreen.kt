@@ -32,6 +32,7 @@ import com.fottow.fottow.R
 import com.fottow.fottow.presentation.navigation.LoginScreen
 import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
+import com.fottow.fottow.presentation.widgets.SecondaryButton
 
 @Composable
 fun OnboardingScreen(
@@ -99,7 +100,7 @@ fun OnboardingScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterHorizontally)
             ) {
                 if (currentPage > 0) {
-                    PrimaryButton(
+                    SecondaryButton(
                         text = "Anterior",
                         onClick = { currentPage-- },
                         modifier = Modifier.weight(1f)

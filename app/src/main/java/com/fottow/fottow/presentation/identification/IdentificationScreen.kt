@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.presentation.navigation.MainScreen
@@ -87,13 +88,24 @@ fun IdentificationScreen(
         ) {
 
             Text(
+                modifier = Modifier.weight(1f),
                 text = "Mandanos un selfie para identificarte",
                 color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineLarge
+            )
+
+            Text(
+                modifier = Modifier.weight(3f),
+                text = "Con este selfie crearemos un patrón seguro de tu rostro."
+                        + "\nRecuerda que solo utilizamos esta foto para generar el patron vectorial que nos permitirá identificarte y que recibas cada foto en la que aparezcas subida a la plataforma.",
+                fontSize = 24.sp,
+                lineHeight = 32.sp,
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.bodyLarge
             )
 
             PrimaryButton(
-                text = "Take photo",
+                text = "Sacar foto",
                 onClick = {
                     val values = ContentValues()
                     values.put(MediaStore.Images.Media.TITLE, "Back Picture")

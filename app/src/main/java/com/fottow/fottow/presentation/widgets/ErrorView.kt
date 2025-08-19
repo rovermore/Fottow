@@ -45,7 +45,7 @@ fun ErrorView(
             color = Color.DarkGray
         )
 
-        PrimaryButton(
+        SecondaryButton(
             text = "Reload",
             onClick = { onReloadCLicked() }
         )
