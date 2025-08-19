@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Fottow</string>
+    <string name="upload_screen_title">Basta fazer o upload da foto, nós a distribuímos entre os protagonistas</string>
+    <string name="take_photo">Tirar foto</string>
+    <string name="back_picture">Foto traseira</string>
+    <string name="from_camera">Da câmera</string>
+    <string name="select_from_device">Selecionar do dispositivo</string>
+    <string name="photo_uploaded_successfully">Foto enviada com sucesso</string>
+    <string name="onboarding_welcome_title">Bem-vindo ao Fottow!</string>
+    <string name="onboarding_welcome_description">Descubra uma nova maneira de compartilhar fotos.</string>
+    <string name="onboarding_upload_title">Envie para o Fottow</string>
+    <string name="onboarding_upload_description">Compartilhe suas fotos através do Fottow.
+Envie suas fotos com familiares e amigos para o aplicativo.</string>
+    <string name="onboarding_auto_title">Compartilhamento automático</string>
+    <string name="onboarding_auto_description">Suas fotos são compartilhadas automaticamente apenas com as pessoas que aparecem na foto. Você não precisa fazer nada, o Fottow faz isso automaticamente para você.</string>
+    <string name="onboarding_previous">Anterior</string>
+    <string name="onboarding_next">Próximo</string>
+    <string name="onboarding_start">Começar</string>
+    <string name="identification_title">Envie-nos uma selfie para identificação</string>
+    <string name="identification_description">Com esta selfie, criaremos um padrão seguro do seu rosto.
+Lembre-se de que usaremos esta foto apenas para gerar o padrão vetorial que permitirá identificar você e garantir que receba cada foto em que aparece enviada para a plataforma.</string>
+    <string name="register_title">Crie sua conta</string>
+    <string name="register_username">Nome de usuário</string>
+    <string name="register_terms">Aceito os termos e condições</string>
+    <string name="sign_up">Registrar-se</string>
+    <string name="login_title">Entrar</string>
+    <string name="log_in">Entrar</string>
+    <string name="register_action">Cadastre-se</string>
+</resources>

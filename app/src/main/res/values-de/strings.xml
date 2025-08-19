@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Fottow</string>
+    <string name="upload_screen_title">Lade einfach das Foto hoch, wir verteilen es an die Protagonisten</string>
+    <string name="take_photo">Foto aufnehmen</string>
+    <string name="back_picture">Hinteres Bild</string>
+    <string name="from_camera">Von der Kamera</string>
+    <string name="select_from_device">Vom Gerät auswählen</string>
+    <string name="photo_uploaded_successfully">Das Foto wurde erfolgreich hochgeladen</string>
+    <string name="onboarding_welcome_title">Willkommen bei Fottow!</string>
+    <string name="onboarding_welcome_description">Entdecke eine neue Möglichkeit, Fotos zu teilen.</string>
+    <string name="onboarding_upload_title">Lade es auf Fottow hoch</string>
+    <string name="onboarding_upload_description">Teile deine Fotos über Fottow.
+Lade deine Fotos mit Familie und Freunden in die App hoch.</string>
+    <string name="onboarding_auto_title">Automatisch geteilt</string>
+    <string name="onboarding_auto_description">Deine Fotos werden automatisch nur mit den Personen geteilt, die auf dem Foto erscheinen. Du musst nichts tun, Fottow erledigt das automatisch für dich.</string>
+    <string name="onboarding_previous">Zurück</string>
+    <string name="onboarding_next">Weiter</string>
+    <string name="onboarding_start">Loslegen</string>
+    <string name="identification_title">Schick uns ein Selfie zur Identifikation</string>
+    <string name="identification_description">Mit diesem Selfie erstellen wir ein sicheres Muster deines Gesichts.
+Wir verwenden dieses Foto nur, um das Vektormuster zu erstellen, das es uns ermöglicht, dich zu identifizieren und dir jedes Foto zukommen zu lassen, auf dem du hochgeladen bist.</string>
+    <string name="register_title">Erstelle dein Konto</string>
+    <string name="register_username">Benutzername</string>
+    <string name="register_terms">Ich akzeptiere die Allgemeinen Geschäftsbedingungen</string>
+    <string name="sign_up">Registrieren</string>
+    <string name="login_title">Anmelden</string>
+    <string name="log_in">Einloggen</string>
+    <string name="register_action">Registriere dich</string>
+</resources>

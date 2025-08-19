@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Fottow</string>
+    <string name="upload_screen_title">Télécharge simplement la photo, nous la distribuerons aux protagonistes</string>
+    <string name="take_photo">Prendre une photo</string>
+    <string name="back_picture">Photo arrière</string>
+    <string name="from_camera">Depuis l\'appareil photo</string>
+    <string name="select_from_device">Sélectionner depuis l\'appareil</string>
+    <string name="photo_uploaded_successfully">La photo a été téléchargée avec succès</string>
+    <string name="onboarding_welcome_title">Bienvenue sur Fottow !</string>
+    <string name="onboarding_welcome_description">Découvrez une nouvelle façon de partager des photos.</string>
+    <string name="onboarding_upload_title">Téléchargez-la sur Fottow</string>
+    <string name="onboarding_upload_description">Partagez vos photos via Fottow.
+Téléchargez vos photos avec votre famille et vos amis sur l\'application.</string>
+    <string name="onboarding_auto_title">Partage automatique</string>
+    <string name="onboarding_auto_description">Vos photos sont automatiquement partagées uniquement avec les personnes qui apparaissent sur la photo. Vous n\'avez rien à faire, Fottow s\'en occupe automatiquement pour vous.</string>
+    <string name="onboarding_previous">Précédent</string>
+    <string name="onboarding_next">Suivant</string>
+    <string name="onboarding_start">Commencer</string>
+    <string name="identification_title">Envoyez-nous un selfie pour vous identifier</string>
+    <string name="identification_description">Avec ce selfie, nous créerons un modèle sécurisé de votre visage.
+Rappelez-vous, nous utiliserons cette photo uniquement pour générer le modèle vectoriel qui nous permettra de vous identifier et de vous envoyer chaque photo dans laquelle vous apparaissez téléchargée sur la plateforme.</string>
+    <string name="register_title">Créez votre compte</string>
+    <string name="register_username">Nom d\'utilisateur</string>
+    <string name="register_terms">J\'accepte les termes et conditions</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="login_title">Connexion</string>
+    <string name="log_in">Se connecter</string>
+    <string name="register_action">Inscrivez-vous</string>
+</resources>

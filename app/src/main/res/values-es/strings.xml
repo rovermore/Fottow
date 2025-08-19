@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">Fottow</string>
+    <string name="upload_screen_title">Solo sube la foto, nosotros la distribuiremos entre los protagonistas</string>
+    <string name="take_photo">Sacar foto</string>
+    <string name="back_picture">Foto trasera</string>
+    <string name="from_camera">Desde la cámara</string>
+    <string name="select_from_device">Seleccionar del dispositivo</string>
+    <string name="photo_uploaded_successfully">La foto se ha subido correctamente</string>
+    <string name="onboarding_welcome_title">¡Bienvenido a Fottow!</string>
+    <string name="onboarding_welcome_description">Descubre una nueva forma de compartir fotos.</string>
+    <string name="onboarding_upload_title">Súbela a Fottow</string>
+    <string name="onboarding_upload_description">Comparte tus fotos a través de Fottow.
+Sube tus fotos con familiares y amigos a la aplicación.</string>
+    <string name="onboarding_auto_title">Se comparte sola</string>
+    <string name="onboarding_auto_description">Tus fotos se comparten automáticamente solo con las personas que aparecen en la foto. No tienes que hacer nada, Fottow lo hace automáticamente por ti.</string>
+    <string name="onboarding_previous">Anterior</string>
+    <string name="onboarding_next">Siguiente</string>
+    <string name="onboarding_start">Empezar</string>
+    <string name="identification_title">Mándanos un selfie para identificarte</string>
+    <string name="identification_description">Con este selfie crearemos un patrón seguro de tu rostro.
+Recuerda que solo utilizamos esta foto para generar el patrón vectorial que nos permitirá identificarte y que recibas cada foto en la que aparezcas subida a la plataforma.</string>
+    <string name="register_title">Crea tu cuenta</string>
+    <string name="register_username">Nombre de usuario</string>
+    <string name="register_terms">Acepto los términos y condiciones</string>
+    <string name="sign_up">Registrarse</string>
+    <string name="login_title">Iniciar sesión</string>
+    <string name="log_in">Acceder</string>
+    <string name="register_action">Regístrate</string>
+</resources>
