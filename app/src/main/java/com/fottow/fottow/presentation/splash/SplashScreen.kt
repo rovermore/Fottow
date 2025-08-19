@@ -12,10 +12,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.R
 import com.fottow.fottow.presentation.navigation.GalleryScreen
 import com.fottow.fottow.presentation.navigation.LoginScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
@@ -52,11 +54,13 @@ fun SplashScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize().background(color = MaterialTheme.colorScheme.primary)
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.primary)
     ) {
         Text(
             modifier = Modifier.align(Alignment.Center),
-            text = "Fottow",
+            text = stringResource(R.string.app_name),
             fontSize = 50.sp,
             color = White,
             fontWeight = FontWeight.ExtraBold

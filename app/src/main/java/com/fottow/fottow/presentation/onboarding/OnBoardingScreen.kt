@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.fottow.fottow.R
@@ -41,18 +42,18 @@ fun OnboardingScreen(
     val onboardingPages = listOf(
         OnboardingPage(
             image = R.drawable.onboarding_image_1,
-            title = "¡Bienvenido a Fottow!",
-            description = "Descubre una manera nueva de compartir fotos.",
+            title = stringResource(R.string.onboarding_welcome_title),
+            description = stringResource(R.string.onboarding_welcome_description),
         ),
         OnboardingPage(
             image = R.drawable.onboarding_image_2,
-            title = "Súbela a Fottow",
-            description = "Comparte tus fotos a través de Fottow.\nSube tus fotos con familiares y amigos a la app.",
+            title = stringResource(R.string.onboarding_upload_title),
+            description = stringResource(R.string.onboarding_upload_description),
         ),
         OnboardingPage(
             image = R.drawable.onboarding_image_3,
-            title = "Se comparte sola",
-            description = "Tus fotos se comparten automáticamente solo con las personas que aparecen en la foto. No tienes que hacer nada, fottow lo hace automáticamente por ti.",
+            title = stringResource(R.string.onboarding_auto_title),
+            description = stringResource(R.string.onboarding_auto_description),
         )
     )
 
@@ -101,20 +102,20 @@ fun OnboardingScreen(
             ) {
                 if (currentPage > 0) {
                     SecondaryButton(
-                        text = "Anterior",
+                        text = stringResource(R.string.onboarding_previous),
                         onClick = { currentPage-- },
                         modifier = Modifier.weight(1f)
                     )
                 }
                 if (currentPage < onboardingPages.lastIndex) {
                     PrimaryButton(
-                        text = "Siguiente",
+                        text = stringResource(R.string.onboarding_next),
                         onClick = { currentPage++ },
                         modifier = Modifier.weight(1f)
                     )
                 } else {
                     PrimaryButton(
-                        text = "Empezar",
+                        text = stringResource(R.string.onboarding_start),
                         onClick = {
                             navController.popBackStack()
                             navController.navigate(LoginScreen)

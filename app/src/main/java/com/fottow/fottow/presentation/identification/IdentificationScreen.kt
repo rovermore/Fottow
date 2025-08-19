@@ -24,9 +24,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.R
 import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.widgets.ErrorView
@@ -89,15 +91,14 @@ fun IdentificationScreen(
 
             Text(
                 modifier = Modifier.weight(1f),
-                text = "Mandanos un selfie para identificarte",
+                text = stringResource(R.string.identification_title),
                 color = MaterialTheme.colorScheme.secondary,
                 style = MaterialTheme.typography.headlineLarge
             )
 
             Text(
                 modifier = Modifier.weight(3f),
-                text = "Con este selfie crearemos un patrón seguro de tu rostro."
-                        + "\nRecuerda que solo utilizamos esta foto para generar el patron vectorial que nos permitirá identificarte y que recibas cada foto en la que aparezcas subida a la plataforma.",
+                text = stringResource(R.string.identification_description),
                 fontSize = 24.sp,
                 lineHeight = 32.sp,
                 color = MaterialTheme.colorScheme.secondary,
@@ -105,11 +106,17 @@ fun IdentificationScreen(
             )
 
             PrimaryButton(
-                text = "Sacar foto",
+                text = stringResource(R.string.take_photo),
                 onClick = {
                     val values = ContentValues()
-                    values.put(MediaStore.Images.Media.TITLE, "Back Picture")
-                    values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+                    values.put(
+                        MediaStore.Images.Media.TITLE,
+                        context.getString(R.string.back_picture)
+                    )
+                    values.put(
+                        MediaStore.Images.Media.DESCRIPTION,
+                        context.getString(R.string.from_camera)
+                    )
                     cameraPhotoUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
                     cameraPermissionState.launchPermissionRequest()
                 }

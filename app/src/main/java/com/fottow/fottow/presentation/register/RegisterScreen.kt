@@ -18,10 +18,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.R
 import com.fottow.fottow.presentation.isValidEmail
 import com.fottow.fottow.presentation.isValidPassword
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
@@ -70,7 +72,7 @@ fun RegisterScreen(
         ) {
 
             Text(
-                text = "Crea tu cuenta",
+                text = stringResource(R.string.register_title),
                 color = MaterialTheme.colorScheme.secondary,
                 style = MaterialTheme.typography.headlineMedium
             )
@@ -78,7 +80,7 @@ fun RegisterScreen(
             CustomTextField(
                 value = nickName,
                 onValueChange = { nickName = it },
-                label = "Nombre de usuario",
+                label = stringResource(R.string.register_username),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 modifier = Modifier.fillMaxWidth(),
                 isValid = email.text.isValidEmail()
@@ -96,7 +98,7 @@ fun RegisterScreen(
             )
 
             FottowCheckBox(
-                text = "Acepto los términos y condiciones",
+                text = stringResource(R.string.register_terms),
                 checked = isTermsAndConditionsChecked,
                 onCheckedChange = { isTermsAndConditionsChecked = it }
             ) {
@@ -104,9 +106,9 @@ fun RegisterScreen(
             }
 
             PrimaryButton(
-                text = "Sign up",
+                text = stringResource(R.string.sign_up),
                 enabled = email.text.isValidEmail() && password.text.isValidPassword()
-                && isTermsAndConditionsChecked && nickName.text.isNotEmpty(),
+                        && isTermsAndConditionsChecked && nickName.text.isNotEmpty(),
                 onClick = {
                     viewModel.registerUser(email.text, password.text, nickName.text)
                 }
@@ -114,9 +116,9 @@ fun RegisterScreen(
 
             if (error.isNotEmpty())
                 ErrorView(
-                message = error
+                    message = error
                 ) {
-                viewModel.registerUser(email.text, password.text, nickName.text)
+                    viewModel.registerUser(email.text, password.text, nickName.text)
                 }
         }
     }

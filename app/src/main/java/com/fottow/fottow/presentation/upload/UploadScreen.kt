@@ -29,6 +29,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +37,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.R
 import com.fottow.fottow.presentation.UploadPhotoService
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.theme.AppTheme
@@ -115,11 +117,13 @@ fun UploadScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
-            modifier = Modifier.fillMaxWidth().weight(1f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Tu solo sube la foto, nostros la distribuiremos entre los protagonistas",
+                text = stringResource(id = R.string.upload_screen_title),
                 fontSize = 24.sp,
                 lineHeight = 32.sp,
                 color = MaterialTheme.colorScheme.secondary,
@@ -128,11 +132,11 @@ fun UploadScreen(
         }
 
         PrimaryButton(
-            text = "Sacar foto",
+            text = stringResource(id = R.string.take_photo),
             onClick = {
                 val values = ContentValues()
-                values.put(MediaStore.Images.Media.TITLE, "Back Picture")
-                values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+                values.put(MediaStore.Images.Media.TITLE, context.getString(R.string.back_picture))
+                values.put(MediaStore.Images.Media.DESCRIPTION, context.getString(R.string.from_camera))
                 cameraPhotoUri = context.contentResolver.insert(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     values
@@ -142,7 +146,7 @@ fun UploadScreen(
         )
 
         SecondaryButton(
-            text = "Seleccionar del dispositivo",
+            text = stringResource(id = R.string.select_from_device),
             onClick = {
                 pickPicture.launch("image/*")
             }
@@ -159,7 +163,7 @@ fun UploadScreen(
     }
 
     if (updateSuccessful) {
-        FDialog("La foto se ha subido correctamente") { viewModel.dialogDismissed() }
+        FDialog(stringResource(id = R.string.photo_uploaded_successfully)) { viewModel.dialogDismissed() }
     }
 
     if (isLoading) {

@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Fottow</string>
+    <string name="upload_screen_title">Just upload the photo, we will distribute it among the protagonists</string>
+    <string name="take_photo">Take photo</string>
+    <string name="back_picture">Back Picture</string>
+    <string name="from_camera">From the Camera</string>
+    <string name="select_from_device">Select from device</string>
+    <string name="photo_uploaded_successfully">Photo uploaded successfully</string>
+
+    <string name="onboarding_welcome_title">Welcome to Fottow!</string>
+    <string name="onboarding_welcome_description">Discover a new way to share photos.</string>
+    <string name="onboarding_upload_title">Upload it to Fottow</string>
+    <string name="onboarding_upload_description">Share your photos through Fottow.\nUpload your photos with family and friends to the app.</string>
+    <string name="onboarding_auto_title">It shares automatically</string>
+    <string name="onboarding_auto_description">Your photos are automatically shared only with the people who appear in the photo. You don\'t have to do anything, Fottow does it for you.</string>
+    <string name="onboarding_previous">Previous</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_start">Get Started</string>
+    <string name="identification_title">Send us a selfie to identify yourself</string>
+    <string name="identification_description">With this selfie we will create a secure pattern of your face.\nRemember, we will only use this photo to generate the vector pattern that will allow us to identify you and make sure you receive every photo in which you appear uploaded to the platform.</string>
+    <string name="register_title">Create your account</string>
+    <string name="register_username">Username</string>
+    <string name="register_terms">I accept the terms and conditions</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_title">Log in</string>
+    <string name="log_in">Log in</string>
+    <string name="register_action">Sign up</string>
 </resources>
