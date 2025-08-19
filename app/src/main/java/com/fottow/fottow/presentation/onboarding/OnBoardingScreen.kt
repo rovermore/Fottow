@@ -85,7 +85,7 @@ fun OnboardingScreen(
                 )
                 Text(
                     text = onboardingPages[currentPage].description,
-                    modifier = Modifier.padding(top = 24.dp),
+                    modifier = Modifier.padding(top = 8.dp),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
