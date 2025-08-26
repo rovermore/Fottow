@@ -24,21 +24,21 @@ class FottowKtorClient(
             install(ContentNegotiation) {
                 json()
             }
-            install(Logging) {
-                if (BuildConfig.DEBUG) {
+            if (BuildConfig.DEBUG) {
+                install(Logging) {
                     logger = object : Logger {
                         override fun log(message: String) {
                             Log.d("KtorClient", message)
                         }
                     }
                     level = LogLevel.ALL
+
+                }
+                install(Inspektor) {
+                    level = com.gyanoba.inspektor.LogLevel.BODY
+
                 }
             }
-             install(Inspektor) {
-                 if (BuildConfig.DEBUG) {
-                     level = com.gyanoba.inspektor.LogLevel.BODY
-                 }
-             }
             install(Auth) {
                 bearer {
                     loadTokens {

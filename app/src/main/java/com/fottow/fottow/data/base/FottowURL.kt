@@ -1,13 +1,15 @@
 package com.fottow.fottow.data.base
 
+import com.fottow.fottow.BuildConfig
+
 object FottowURL {
 
-    private const val BASE_URL = "https://778meigv57.execute-api.us-east-1.amazonaws.com/dev"
+    var BASE_URL = BuildConfig.base_url
 
-    const val IMAGES_UPLOAD = "$BASE_URL/images/upload"
-    const val IDENTIFICATION_SELFIE_UPLOAD = "$BASE_URL/images/identify"
-    const val IMAGES = "$BASE_URL/images/images"
-    const val LOGIN = "$BASE_URL/auth/login"
-    const val REGISTER = "$BASE_URL/auth/signup"
-    const val LOGOUT = "$BASE_URL/auth/logout"
+    val IMAGES_UPLOAD = "$BASE_URL/images/upload"
+    val IDENTIFICATION_SELFIE_UPLOAD = "$BASE_URL/images/identify"
+    val IMAGES = "$BASE_URL/images/images"
+    val LOGIN = "$BASE_URL/auth/login"
+    val REGISTER = "$BASE_URL/auth/signup"
+    val LOGOUT = "$BASE_URL/auth/logout"
 }
