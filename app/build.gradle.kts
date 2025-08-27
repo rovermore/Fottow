@@ -17,7 +17,7 @@ android {
         applicationId = "com.fottow.fottow"
         minSdk = 26
         targetSdk = 35
-        versionCode = 25082601
+        versionCode = 25082701
         versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -47,12 +47,12 @@ android {
             buildConfigField(
                 "String",
                 "base_url",
-                "\"https://778meigv57.execute-api.us-east-1.amazonaws.com/dev\""
+                "\"https://api-dev.fottow.com\""
             )
         }
         create("pro") {
             dimension = "tier"
-            buildConfigField("String", "base_url", "\"https://api-dev.fottow.com\"")
+            buildConfigField("String", "base_url", "\"https://api.fottow.com\"")
         }
     }
     compileOptions {
