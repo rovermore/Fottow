@@ -74,6 +74,6 @@ val appModule = module {
 
     single<PhotoRepository> { PhotoRepositoryImpl(get(), get(), get(), get()) }
 
-    single<UserRepository> {UserRepositoryImpl(get(), get(), get())}
+    single<UserRepository> {UserRepositoryImpl(get(), get(), get(), get())}
 
 }
