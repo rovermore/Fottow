@@ -9,6 +9,7 @@ class RegisterRequest(
     val userName: String,
     val password: String,
     @SerialName("nick")
-    val nickName: String
+    val nickName: String,
+    val fcm: String
 ) {
 }
