@@ -54,7 +54,7 @@ class FottowFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(R.drawable.ic_notification_logo)
             .setContentTitle(title ?: "Notificación")
             .setContentText(message ?: "Nuevo mensaje recibido")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)

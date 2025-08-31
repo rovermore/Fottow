@@ -31,4 +31,9 @@ Recuerda que solo utilizamos esta foto para generar el patrón vectorial que nos
     <string name="email_label">Correo electrónico</string>
     <string name="invalid_email">Correo electrónico inválido</string>
     <string name="invalid_password">La contraseña debe tener al menos 8 caracteres alfanuméricos</string>
+
+    <!-- BottomAppBar Navigation -->
+    <string name="tab_gallery">Galería</string>
+    <string name="tab_upload">Subir</string>
+    <string name="tab_profile">Perfil</string>
 </resources>

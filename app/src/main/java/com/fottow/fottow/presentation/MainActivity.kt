@@ -33,13 +33,25 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val receivedIntent = intent
-        val pendingShareUri: Uri? = if (
-            receivedIntent?.action == Intent.ACTION_SEND &&
-            receivedIntent.type?.startsWith("image/") == true
-        ) {
-            receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM)
-        } else null
+        handleShareIntent(intent)
+
+        setContent {
+            FottowTheme {
+                KoinAndroidContext {
+                    FottowNavHost(isSharedPhoto = getSharedPhotoUri(intent) != null)
+                }
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleShareIntent(intent)
+    }
+
+    private fun handleShareIntent(receivedIntent: Intent?) {
+        val pendingShareUri = getSharedPhotoUri(receivedIntent)
 
         pendingShareUri?.let {
             val intent = Intent(this, UploadPhotoService::class.java).apply {
@@ -47,17 +59,14 @@ class MainActivity : ComponentActivity() {
             }
             ContextCompat.startForegroundService(this, intent)
         }
-
-        setContent {
-            FottowTheme {
-                KoinAndroidContext {
-                    FottowNavHost(isSharedPhoto = pendingShareUri != null)
-                }
-            }
-        }
-
     }
 
-
+    private fun getSharedPhotoUri(receivedIntent: Intent?): Uri? {
+        return if (
+            receivedIntent?.action == Intent.ACTION_SEND &&
+            receivedIntent.type?.startsWith("image/") == true
+        ) {
+            receivedIntent.getParcelableExtra(Intent.EXTRA_STREAM)
+        } else null
+    }
 }
-

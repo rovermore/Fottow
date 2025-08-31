@@ -31,4 +31,9 @@ Rappelez-vous, nous utiliserons cette photo uniquement pour générer le modèle
     <string name="email_label">Email</string>
     <string name="invalid_email">E-mail invalide</string>
     <string name="invalid_password">Le mot de passe doit comporter au moins 8 caractères alphanumériques</string>
+
+    <!-- BottomAppBar Navigation -->
+    <string name="tab_gallery">Galerie</string>
+    <string name="tab_upload">Télécharger</string>
+    <string name="tab_profile">Profil</string>
 </resources>

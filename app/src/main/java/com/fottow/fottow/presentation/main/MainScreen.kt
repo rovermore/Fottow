@@ -1,18 +1,18 @@
 package com.fottow.fottow.presentation.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
@@ -21,12 +21,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.fottow.fottow.R
 import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.profile.ProfileScreen
+import com.fottow.fottow.presentation.theme.AppTheme.Spacing
 import com.fottow.fottow.presentation.upload.UploadScreen
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.fottow.fottow.presentation.widgets.FTopBar
@@ -55,7 +60,7 @@ fun MainScreen(
                 is ScreenSelected.Gallery -> FTopBar(scrollBehavior = scrollBehavior)
                 is ScreenSelected.Upload -> FTopBar { }
                 is ScreenSelected.Profile -> FTopBar(
-                    icon = com.fottow.fottow.R.drawable.ic_logout
+                    icon = R.drawable.ic_logout
                 ) {
                     onProfileLogout()
                 }
@@ -67,34 +72,61 @@ fun MainScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    IconButton(
-                        onClick = { screenSelected = ScreenSelected.Gallery },
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            Icons.Default.Home,
-                            "Gallery",
-                            tint = if (screenSelected is ScreenSelected.Gallery) MaterialTheme.colorScheme.primary else Color.Gray
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    )  {
+                        IconButton(
+                            onClick = { screenSelected = ScreenSelected.Gallery },
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_photo),
+                                "Gallery",
+                                tint = if (screenSelected is ScreenSelected.Gallery) MaterialTheme.colorScheme.primary else Color.Gray
+                            )
+                        }
+                        Text(
+                            text = stringResource(id = R.string.tab_gallery),
+                            color = if (screenSelected is ScreenSelected.Gallery) MaterialTheme.colorScheme.primary else Color.Gray
                         )
                     }
-                    IconButton(
-                        onClick = { screenSelected = ScreenSelected.Upload },
-                        modifier = Modifier.weight(1f)
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
                     ) {
-                        Icon(
-                            Icons.Default.AddCircle,
-                            "UploadScreen",
-                            tint = if (screenSelected is ScreenSelected.Upload) MaterialTheme.colorScheme.primary else Color.Gray
+                        IconButton(
+                            onClick = { screenSelected = ScreenSelected.Upload },
+                        ) {
+                            Icon(
+                                Icons.Default.AddCircle,
+                                "UploadScreen",
+                                tint = if (screenSelected is ScreenSelected.Upload) MaterialTheme.colorScheme.primary else Color.Gray
+                            )
+                        }
+                        Text(
+                            text = stringResource(id = R.string.tab_upload),
+                            color = if (screenSelected is ScreenSelected.Upload) MaterialTheme.colorScheme.primary else Color.Gray
                         )
                     }
-                    IconButton(
-                        onClick = { screenSelected = ScreenSelected.Profile },
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Icon(
-                            Icons.Default.Person,
-                            "ProfileScreen",
-                            tint = if (screenSelected is ScreenSelected.Profile) MaterialTheme.colorScheme.primary else Color.Gray
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    )  {
+                        IconButton(
+                            onClick = { screenSelected = ScreenSelected.Profile },
+                        ) {
+                            Icon(
+                                Icons.Default.Person,
+                                "ProfileScreen",
+                                tint = if (screenSelected is ScreenSelected.Profile) MaterialTheme.colorScheme.primary else Color.Gray
+                            )
+                        }
+                        Text(
+                            text = stringResource(id = R.string.tab_profile),
+                            color = if (screenSelected is ScreenSelected.Profile) MaterialTheme.colorScheme.primary else Color.Gray
                         )
                     }
                 }

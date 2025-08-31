@@ -29,4 +29,9 @@
     <string name="email_label">Email</string>
     <string name="invalid_email">E-mail non valida</string>
     <string name="invalid_password">La password deve contenere almeno 8 caratteri alfanumerici</string>
+
+    <!-- BottomAppBar Navigation -->
+    <string name="tab_gallery">Galleria</string>
+    <string name="tab_upload">Carica</string>
+    <string name="tab_profile">Profilo</string>
 </resources>
