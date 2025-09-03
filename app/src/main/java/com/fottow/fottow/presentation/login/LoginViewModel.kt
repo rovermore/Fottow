@@ -6,6 +6,8 @@ import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.user.model.User
 import com.fottow.fottow.domain.user.usecase.LoginUseCase
+import com.fottow.fottow.presentation.error.ErrorUi
+import com.fottow.fottow.presentation.error.ErrorUiMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,13 +16,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val errorUiMapper: ErrorUiMapper
 ): ViewModel() {
 
     private var _user = MutableStateFlow<User>(User())
     val user: StateFlow<User> get() = _user.asStateFlow()
-    private var _error = MutableStateFlow<Boolean>(false)
-    val error: StateFlow<Boolean> get() = _error.asStateFlow()
+    private val _onError = MutableStateFlow<ErrorUi>(ErrorUi.None)
+    val onError: StateFlow<ErrorUi> get() = _onError
 
     fun logUser(userName: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,7 +35,7 @@ class LoginViewModel(
                         profileImage = result.profileImage)
                     }
                 }.mapFailure {
-                    _error.update { true }
+                    _onError.value = errorUiMapper.map(it)
                 }
         }
     }

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.R
+import com.fottow.fottow.presentation.error.ErrorUi
 import com.fottow.fottow.presentation.navigation.MainScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.widgets.ErrorView
@@ -48,7 +49,7 @@ fun IdentificationScreen(
 
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val uploadSuccessful by viewModel.uploadSuccessful.collectAsStateWithLifecycle()
-    val isError by viewModel.onError.collectAsStateWithLifecycle()
+    val onError by viewModel.onError.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
     var cameraPhotoUri by remember { mutableStateOf(value = Uri.EMPTY) }
@@ -122,8 +123,9 @@ fun IdentificationScreen(
                 }
             )
 
-            if (isError) ErrorView {
-            }
+            if (onError !is ErrorUi.None) ErrorView(
+                message = onError.message,
+            )
         }
     }
 }

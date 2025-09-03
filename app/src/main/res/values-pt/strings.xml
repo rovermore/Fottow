@@ -36,4 +36,5 @@ Lembre-se de que usaremos esta foto apenas para gerar o padrão vetorial que per
     <string name="tab_gallery">Galeria</string>
     <string name="tab_upload">Enviar</string>
     <string name="tab_profile">Perfil</string>
+    <string name="register_username_error">O nome de usuário deve ter pelo menos 4 caracteres</string>
 </resources>

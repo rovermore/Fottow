@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.fottow.fottow.domain.base.map
 import com.fottow.fottow.domain.base.mapFailure
 import com.fottow.fottow.domain.user.usecase.RegisterUseCase
+import com.fottow.fottow.presentation.error.ErrorUi
+import com.fottow.fottow.presentation.error.ErrorUiMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,21 +15,22 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val registerUseCase: RegisterUseCase
+    private val registerUseCase: RegisterUseCase,
+    private val errorUiMapper: ErrorUiMapper
 ): ViewModel(){
 
     private var _register = MutableStateFlow<Boolean>(false)
     val register: StateFlow<Boolean> get() = _register.asStateFlow()
-    private var _error = MutableStateFlow<String>("")
-    val error: StateFlow<String> get() = _error.asStateFlow()
+    private val _onError = MutableStateFlow<ErrorUi>(ErrorUi.None)
+    val onError: StateFlow<ErrorUi> get() = _onError
 
     fun registerUser(email: String, password: String, nickName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             registerUseCase.registerUser(email, password, nickName)
                 .map {
                     _register.update { true }
-                }.mapFailure { error ->
-                    _error.update { error.message }
+                }.mapFailure {
+                    _onError.value = errorUiMapper.map(it)
                 }
         }
     }

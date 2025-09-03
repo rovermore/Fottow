@@ -28,6 +28,7 @@ import com.fottow.fottow.presentation.gallery.GalleryViewModel
 import com.fottow.fottow.presentation.splash.SplashScreenViewModel
 import com.fottow.fottow.presentation.identification.IdentificationViewModel
 import com.fottow.fottow.presentation.profile.ProfileViewModel
+import com.fottow.fottow.presentation.error.ErrorUiMapper
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -51,6 +52,8 @@ val appModule = module {
     factory { RegisterUseCase(get()) }
 
     factory { UserUseCase(get()) }
+
+    factory { ErrorUiMapper() }
 
     single { FottowKtorClient(get()) }
 

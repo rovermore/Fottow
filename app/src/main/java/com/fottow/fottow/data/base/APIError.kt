@@ -5,8 +5,10 @@ sealed class APIError(val code: Int, val message: String) {
     class ServiceUnavailable(message: String): APIError(503, message)
     class NotProcessableEntity(message: String): APIError(422, message)
     class NotFound(message: String): APIError(404, message)
-    class UnauthorizedError(message: String): APIError(403, message)
     class TimeOut(message: String): APIError(408, message)
+    class BadRequest(message: String): APIError(400, message)
+    class Forbidden(message: String): APIError(403, message)
+    class Unauthorized(message: String): APIError(401, message)
 
     class UnmappedError(code: Int, message: String): APIError(code, message)
 }

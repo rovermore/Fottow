@@ -34,4 +34,5 @@
     <string name="tab_gallery">Galleria</string>
     <string name="tab_upload">Carica</string>
     <string name="tab_profile">Profilo</string>
+    <string name="register_username_error">Il nome utente deve avere almeno 4 caratteri</string>
 </resources>

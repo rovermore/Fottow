@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.R
+import com.fottow.fottow.presentation.error.ErrorUi
 import com.fottow.fottow.presentation.isValidEmail
 import com.fottow.fottow.presentation.isValidPassword
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
@@ -53,7 +54,7 @@ fun RegisterScreen(
 ) {
 
     val register by viewModel.register.collectAsStateWithLifecycle()
-    val error by viewModel.error.collectAsStateWithLifecycle()
+    val error by viewModel.onError.collectAsStateWithLifecycle()
 
     var email by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
     var password by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
@@ -96,8 +97,8 @@ fun RegisterScreen(
                 label = stringResource(R.string.register_username),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
                 modifier = Modifier.fillMaxWidth(),
-                isValid = email.text.isValidEmail()
-
+                isValid = nickName.text.length >= 4,
+                errorMessage = stringResource(R.string.register_username_error)
             )
 
             EmailTextField(
@@ -121,15 +122,15 @@ fun RegisterScreen(
             PrimaryButton(
                 text = stringResource(R.string.sign_up),
                 enabled = email.text.isValidEmail() && password.text.isValidPassword()
-                        && isTermsAndConditionsChecked && nickName.text.isNotEmpty(),
+                        && isTermsAndConditionsChecked && nickName.text.length >= 4,
                 onClick = {
                     viewModel.registerUser(email.text, password.text, nickName.text)
                 }
             )
 
-            if (error.isNotEmpty())
+            if (error !is ErrorUi.None)
                 ErrorView(
-                    message = error
+                    message = error.message
                 ) {
                     viewModel.registerUser(email.text, password.text, nickName.text)
                 }

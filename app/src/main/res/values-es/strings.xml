@@ -36,4 +36,5 @@ Recuerda que solo utilizamos esta foto para generar el patrón vectorial que nos
     <string name="tab_gallery">Galería</string>
     <string name="tab_upload">Subir</string>
     <string name="tab_profile">Perfil</string>
+    <string name="register_username_error">El nombre de usuario debe tener al menos 4 caracteres</string>
 </resources>

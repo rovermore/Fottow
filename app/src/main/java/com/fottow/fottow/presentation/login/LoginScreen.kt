@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.fottow.fottow.R
+import com.fottow.fottow.presentation.error.ErrorUi
 import com.fottow.fottow.presentation.isValidEmail
 import com.fottow.fottow.presentation.navigation.IdentificationScreen
 import com.fottow.fottow.presentation.navigation.MainScreen
@@ -50,7 +51,7 @@ fun LoginScreen(
     navController: NavController
 ) {
     val user by viewModel.user.collectAsStateWithLifecycle()
-    val error by viewModel.error.collectAsStateWithLifecycle()
+    val error by viewModel.onError.collectAsStateWithLifecycle()
 
     var email by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
     var password by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
@@ -111,7 +112,9 @@ fun LoginScreen(
                 }
             )
 
-            if (error) ErrorView {  }
+            if (error !is ErrorUi.None) ErrorView(
+                message = error.message,
+            )
         }
     }
 

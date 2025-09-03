@@ -19,7 +19,7 @@
     <string name="identification_title">Send us a selfie to identify yourself</string>
     <string name="identification_description">With this selfie we will create a secure pattern of your face.\nRemember, we will only use this photo to generate the vector pattern that will allow us to identify you and make sure you receive every photo in which you appear uploaded to the platform.</string>
     <string name="register_title">Create your account</string>
-    <string name="register_username">Username</string>
+    <string name="register_username">Nickname</string>
     <string name="register_terms">I accept the terms and conditions</string>
     <string name="sign_up">Sign up</string>
     <string name="login_title">Log in</string>
@@ -34,4 +34,5 @@
     <string name="tab_gallery">Gallery</string>
     <string name="tab_upload">Upload</string>
     <string name="tab_profile">Profile</string>
+    <string name="register_username_error">Username must have at least 4 characters</string>
 </resources>

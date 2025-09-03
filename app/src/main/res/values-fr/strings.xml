@@ -36,4 +36,5 @@ Rappelez-vous, nous utiliserons cette photo uniquement pour générer le modèle
     <string name="tab_gallery">Galerie</string>
     <string name="tab_upload">Télécharger</string>
     <string name="tab_profile">Profil</string>
+    <string name="register_username_error">Le nom d\'utilisateur doit comporter au moins 4 caractères</string>
 </resources>

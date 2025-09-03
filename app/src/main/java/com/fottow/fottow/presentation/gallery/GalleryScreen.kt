@@ -79,7 +79,7 @@ fun GalleryScreen(
             }
         } else {
             item {
-                ErrorView(modifier = Modifier.fillMaxWidth()) {}
+                ErrorView(modifier = Modifier.fillMaxWidth())
             }
         }
 

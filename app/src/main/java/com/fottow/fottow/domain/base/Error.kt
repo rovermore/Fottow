@@ -6,5 +6,9 @@ sealed class Error(val message: String) {
     class Unauthorized(message: String = ""): Error(message)
     class Unmapped(message: String = "", ): Error(message)
     class ConnectionError(message: String = ""): Error(message)
+    class BadRequest(message: String = ""): Error(message)
+    class NotFound(message: String = ""): Error(message)
+    class InternalServerError(message: String = ""): Error(message)
+    class Unknown(message: String = ""): Error(message)
 
 }

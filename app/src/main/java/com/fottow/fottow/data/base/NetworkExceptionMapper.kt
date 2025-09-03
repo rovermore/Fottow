@@ -10,6 +10,9 @@ class NetworkExceptionsMapper() {
             422 -> APIError.NotProcessableEntity(message ?: "")
             404 -> APIError.NotFound(message ?: "")
             408 -> APIError.TimeOut(message ?: "")
+            403 -> APIError.Forbidden(message ?: "")
+            401 -> APIError.Unauthorized(message ?: "")
+            400 -> APIError.BadRequest(message ?: "")
 
             else -> APIError.UnmappedError(code, message ?: "")
         }

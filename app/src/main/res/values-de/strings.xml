@@ -36,4 +36,5 @@ Wir verwenden dieses Foto nur, um das Vektormuster zu erstellen, das es uns ermÃ
     <string name="tab_gallery">Galerie</string>
     <string name="tab_upload">Hochladen</string>
     <string name="tab_profile">Profil</string>
+    <string name="register_username_error">Der Benutzername muss mindestens 4 Zeichen haben</string>
 </resources>
