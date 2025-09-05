@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Person
@@ -27,11 +30,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.fottow.fottow.R
 import com.fottow.fottow.presentation.gallery.GalleryScreen
 import com.fottow.fottow.presentation.profile.ProfileScreen
-import com.fottow.fottow.presentation.theme.AppTheme.Spacing
+import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.upload.UploadScreen
 import com.fottow.fottow.presentation.widgets.ScreenContainer
 import com.fottow.fottow.presentation.widgets.FTopBar
@@ -69,71 +73,86 @@ fun MainScreen(
         bottomBar = {
             BottomAppBar {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = AppTheme.Spacing.XS),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Column(
+
+                    IconButton(
                         modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    )  {
-                        IconButton(
-                            onClick = { screenSelected = ScreenSelected.Gallery },
+                        onClick = { screenSelected = ScreenSelected.Gallery },
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_photo),
-                                "Gallery",
+                                contentDescription = "Gallery",
+                                modifier = Modifier.size(24.dp),
                                 tint = if (screenSelected is ScreenSelected.Gallery) MaterialTheme.colorScheme.primary else Color.Gray
                             )
+
+                            Text(
+                                text = stringResource(id = R.string.tab_gallery),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (screenSelected is ScreenSelected.Gallery) MaterialTheme.colorScheme.primary else Color.Gray
+                            )
                         }
-                        Text(
-                            text = stringResource(id = R.string.tab_gallery),
-                            color = if (screenSelected is ScreenSelected.Gallery) MaterialTheme.colorScheme.primary else Color.Gray
-                        )
+
                     }
-                    Column(
+
+                    IconButton(
                         modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                        onClick = { screenSelected = ScreenSelected.Upload },
                     ) {
-                        IconButton(
-                            onClick = { screenSelected = ScreenSelected.Upload },
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
                         ) {
                             Icon(
                                 Icons.Default.AddCircle,
-                                "UploadScreen",
+                                contentDescription = "Upload",
+                                modifier = Modifier.size(24.dp),
                                 tint = if (screenSelected is ScreenSelected.Upload) MaterialTheme.colorScheme.primary else Color.Gray
                             )
+                            Text(
+                                text = stringResource(id = R.string.tab_upload),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (screenSelected is ScreenSelected.Upload) MaterialTheme.colorScheme.primary else Color.Gray
+                            )
                         }
-                        Text(
-                            text = stringResource(id = R.string.tab_upload),
-                            color = if (screenSelected is ScreenSelected.Upload) MaterialTheme.colorScheme.primary else Color.Gray
-                        )
+
                     }
-                    Column(
+
+                    IconButton(
                         modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    )  {
-                        IconButton(
-                            onClick = { screenSelected = ScreenSelected.Profile },
+                        onClick = { screenSelected = ScreenSelected.Profile },
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
                         ) {
                             Icon(
                                 Icons.Default.Person,
-                                "ProfileScreen",
+                                contentDescription = "Profile",
+                                modifier = Modifier.size(24.dp),
                                 tint = if (screenSelected is ScreenSelected.Profile) MaterialTheme.colorScheme.primary else Color.Gray
                             )
+                            Text(
+                                text = stringResource(id = R.string.tab_profile),
+                                style = MaterialTheme.typography.labelSmall,
+                                color = if (screenSelected is ScreenSelected.Profile) MaterialTheme.colorScheme.primary else Color.Gray
+                            )
                         }
-                        Text(
-                            text = stringResource(id = R.string.tab_profile),
-                            color = if (screenSelected is ScreenSelected.Profile) MaterialTheme.colorScheme.primary else Color.Gray
-                        )
+
                     }
                 }
             }
         }
     ) {
-        when(screenSelected) {
+        when (screenSelected) {
             is ScreenSelected.Gallery -> GalleryScreen(navController = navController)
             is ScreenSelected.Upload -> UploadScreen(navController = navController)
             is ScreenSelected.Profile -> ProfileScreen(

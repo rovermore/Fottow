@@ -1,6 +1,7 @@
 package com.fottow.fottow.presentation.upload
 
 import android.Manifest
+import android.os.Build
 import androidx.compose.foundation.verticalScroll
 import android.content.ContentValues
 import android.content.Intent
@@ -108,6 +109,21 @@ fun UploadScreen(
         }
     )
 
+    val readMediaImagesPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        Manifest.permission.READ_MEDIA_IMAGES
+    } else {
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    }
+
+    val readMediaImagesPermissionState = rememberPermissionState(
+        permission = readMediaImagesPermission,
+        onPermissionResult = { granted ->
+            if (granted) {
+                pickPicture.launch("image/*")
+            }
+        }
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -148,7 +164,7 @@ fun UploadScreen(
         SecondaryButton(
             text = stringResource(id = R.string.select_from_device),
             onClick = {
-                pickPicture.launch("image/*")
+                readMediaImagesPermissionState.launchPermissionRequest()
             }
         )
 

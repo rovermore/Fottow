@@ -2,6 +2,7 @@ package com.fottow.fottow.presentation.identification
 
 import android.Manifest
 import android.content.ContentValues
+import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import androidx.activity.compose.BackHandler
@@ -54,8 +55,12 @@ fun IdentificationScreen(
     val context = LocalContext.current
     var cameraPhotoUri by remember { mutableStateOf(value = Uri.EMPTY) }
 
-    val takePhoto = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { saved ->
-        if (saved && cameraPhotoUri != Uri.EMPTY) viewModel.selectImage(cameraPhotoUri)
+    val takeLowResPhoto = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == android.app.Activity.RESULT_OK && cameraPhotoUri != Uri.EMPTY) {
+            viewModel.selectImage(cameraPhotoUri)
+        }
     }
 
     val cameraPermission = Manifest.permission.CAMERA
@@ -66,10 +71,31 @@ fun IdentificationScreen(
     val cameraPermissionState = rememberPermissionState(
         permission = Manifest.permission.CAMERA,
         onPermissionResult = { granted ->
-            if (granted)
-                takePhoto.launch(cameraPhotoUri)
-            else
+            if (granted) {
+                val values = ContentValues()
+                values.put(
+                    MediaStore.Images.Media.TITLE,
+                    context.getString(R.string.back_picture)
+                )
+                values.put(
+                    MediaStore.Images.Media.DESCRIPTION,
+                    context.getString(R.string.from_camera)
+                )
+                cameraPhotoUri = context.contentResolver.insert(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    values
+                )
+
+                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                    putExtra(MediaStore.EXTRA_OUTPUT, cameraPhotoUri)
+                    putExtra(MediaStore.EXTRA_SIZE_LIMIT, 6L * 1024 * 1024)
+                    putExtra("android.intent.extras.CAMERA_FACING", 0)
+                    putExtra("android.intent.extra.quickCapture", true)
+                }
+                takeLowResPhoto.launch(cameraIntent)
+            } else {
                 cameraPermissionLauncher.launch(cameraPermission)
+            }
         }
     )
 
@@ -109,16 +135,6 @@ fun IdentificationScreen(
             PrimaryButton(
                 text = stringResource(R.string.take_photo),
                 onClick = {
-                    val values = ContentValues()
-                    values.put(
-                        MediaStore.Images.Media.TITLE,
-                        context.getString(R.string.back_picture)
-                    )
-                    values.put(
-                        MediaStore.Images.Media.DESCRIPTION,
-                        context.getString(R.string.from_camera)
-                    )
-                    cameraPhotoUri = context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
                     cameraPermissionState.launchPermissionRequest()
                 }
             )
