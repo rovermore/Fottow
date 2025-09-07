@@ -131,9 +131,7 @@ fun RegisterScreen(
             if (error !is ErrorUi.None)
                 ErrorView(
                     message = error.message
-                ) {
-                    viewModel.registerUser(email.text, password.text, nickName.text)
-                }
+                )
         }
     }
 }

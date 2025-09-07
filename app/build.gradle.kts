@@ -17,8 +17,8 @@ android {
         applicationId = "com.fottow.fottow"
         minSdk = 26
         targetSdk = 35
-        versionCode = 25090501
-        versionName = "1.0.4"
+        versionCode = 25090701
+        versionName = "1.0.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

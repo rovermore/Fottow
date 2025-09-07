@@ -25,7 +25,7 @@ Recuerda que solo utilizamos esta foto para generar el patrón vectorial que nos
     <string name="register_terms">Acepto los términos y condiciones</string>
     <string name="sign_up">Registrarse</string>
     <string name="login_title">Iniciar sesión</string>
-    <string name="log_in">Acceder</string>
+    <string name="log_in">Iniciar Sesión</string>
     <string name="register_action">Regístrate</string>
     <string name="password">Contraseña</string>
     <string name="email_label">Correo electrónico</string>

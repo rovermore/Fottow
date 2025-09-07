@@ -4,6 +4,7 @@ import com.fottow.fottow.data.base.APIError
 import com.fottow.fottow.data.base.CallExecutor
 import com.fottow.fottow.data.base.FottowKtorClient
 import com.fottow.fottow.data.base.FottowURL
+import com.fottow.fottow.data.base.compressImage
 import com.fottow.fottow.data.user.register.RegisterRequest
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Result
@@ -28,7 +29,7 @@ class PhotoNetworkDatasource(
     private val callExecutor: CallExecutor
 ) {
     suspend fun uploadPhoto(imagePath: String): Result<UploadPhotoResponse, APIError> {
-        val file = File(imagePath)
+        val file = File(imagePath).compressImage()
         val call : suspend () -> HttpResponse = {
             client.getClient().submitFormWithBinaryData(
                 url = FottowURL.IMAGES_UPLOAD,
@@ -59,7 +60,7 @@ class PhotoNetworkDatasource(
     }
 
     suspend fun uploadIdentificationSelfie(imagePath: String): Result<UploadPhotoResponse, APIError> {
-        val file = File(imagePath)
+        val file = File(imagePath).compressImage()
         val call : suspend () -> HttpResponse = {
             client.getClient().submitFormWithBinaryData(
                 url = FottowURL.IDENTIFICATION_SELFIE_UPLOAD,
