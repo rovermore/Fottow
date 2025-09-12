@@ -31,7 +31,9 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun GalleryScreen(
     viewModel: GalleryViewModel = koinViewModel<GalleryViewModel>(),
-    navController: NavController
+    navController: NavController,
+    onLoading: (Boolean) -> Unit,
+    refresh: Int
 ) {
 
 
@@ -41,7 +43,7 @@ fun GalleryScreen(
 
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    DisposableEffect(lifecycleOwner) {
+    /*DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_RESUME -> {
@@ -55,6 +57,16 @@ fun GalleryScreen(
 
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }*/
+
+    LaunchedEffect(loading) {
+        onLoading(loading)
+    }
+
+    LaunchedEffect(refresh) {
+        if (refresh > 0) {
+            viewModel.getImages()
         }
     }
 
@@ -82,8 +94,5 @@ fun GalleryScreen(
                 ErrorView(modifier = Modifier.fillMaxWidth())
             }
         }
-
-        if (loading)
-            item { Loader() }
     }
 }

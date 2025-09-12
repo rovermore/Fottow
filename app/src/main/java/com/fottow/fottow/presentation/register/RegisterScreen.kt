@@ -55,6 +55,7 @@ fun RegisterScreen(
 
     val register by viewModel.register.collectAsStateWithLifecycle()
     val error by viewModel.onError.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     var email by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
     var password by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
@@ -63,8 +64,8 @@ fun RegisterScreen(
     var isTermsAndConditionsChecked by rememberSaveable { mutableStateOf(false) }
 
     ScreenContainer(
-        topBar = { FTopBar() }
-
+        topBar = { FTopBar() },
+        isLoading = isLoading
     ) {
         if (register) navController.navigate(IdentificationScreen)
 

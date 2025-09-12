@@ -20,6 +20,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -57,6 +58,10 @@ fun MainScreen(
     var onProfileLogout by androidx.compose.runtime.remember { mutableStateOf<() -> Unit>({}) }
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
 
+    var isLoading by rememberSaveable { mutableStateOf(false) }
+
+    var refresh by rememberSaveable { mutableIntStateOf(0) }
+
     ScreenContainer(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
@@ -70,6 +75,10 @@ fun MainScreen(
                 }
             }
         },
+        isLoading = isLoading,
+        onRefresh = if (screenSelected is ScreenSelected.Gallery) {
+                { refresh ++ }
+            } else null,
         bottomBar = {
             BottomAppBar {
                 Row(
@@ -153,7 +162,7 @@ fun MainScreen(
         }
     ) {
         when (screenSelected) {
-            is ScreenSelected.Gallery -> GalleryScreen(navController = navController)
+            is ScreenSelected.Gallery -> GalleryScreen(navController = navController, onLoading = { isLoading = it }, refresh = refresh)
             is ScreenSelected.Upload -> UploadScreen(navController = navController)
             is ScreenSelected.Profile -> ProfileScreen(
                 navController = navController,

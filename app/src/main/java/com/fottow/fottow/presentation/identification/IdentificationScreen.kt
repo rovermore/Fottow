@@ -100,7 +100,8 @@ fun IdentificationScreen(
     )
 
     ScreenContainer(
-        topBar = { FTopBar() }
+        topBar = { FTopBar() },
+        isLoading = isLoading
 
     ) {
         if (uploadSuccessful) navController.navigate(MainScreen)

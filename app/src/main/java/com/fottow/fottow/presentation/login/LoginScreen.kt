@@ -38,6 +38,7 @@ import com.fottow.fottow.presentation.utils.TextFieldValueSaver
 import com.fottow.fottow.presentation.widgets.EmailTextField
 import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.FTopBar
+import com.fottow.fottow.presentation.widgets.Loader
 import com.fottow.fottow.presentation.widgets.PasswordTextField
 import com.fottow.fottow.presentation.widgets.PrimaryButton
 import com.fottow.fottow.presentation.widgets.ScreenContainer
@@ -52,12 +53,14 @@ fun LoginScreen(
 ) {
     val user by viewModel.user.collectAsStateWithLifecycle()
     val error by viewModel.onError.collectAsStateWithLifecycle()
+    val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
 
     var email by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
     var password by rememberSaveable(stateSaver = TextFieldValueSaver.Saver) { mutableStateOf(TextFieldValue("")) }
 
     ScreenContainer(
-        topBar = { FTopBar() }
+        topBar = { FTopBar() },
+        isLoading = isLoading,
     ) {
         if (user.email.isNotEmpty() && user.profileImage.isNotEmpty())
             navController.navigate(MainScreen)

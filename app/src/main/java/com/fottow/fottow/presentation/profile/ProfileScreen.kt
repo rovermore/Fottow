@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,11 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.fottow.fottow.BuildConfig
 import com.fottow.fottow.presentation.navigation.LoginScreen
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.widgets.ImageCustom
 import org.koin.androidx.compose.koinViewModel
-import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun ProfileScreen(
@@ -66,6 +67,13 @@ fun ProfileScreen(
             text = state.userInfo.email,
             fontSize = 18.sp,
             fontWeight = FontWeight.ExtraBold,
+        )
+
+        Text(
+            modifier = Modifier.padding(top = AppTheme.Spacing.L),
+            text = "Version: ${BuildConfig.VERSION_NAME}",
+            fontSize = 10.sp,
+            fontWeight = FontWeight.W200,
         )
     }
 }
