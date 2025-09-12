@@ -13,6 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
@@ -64,10 +66,12 @@ fun GalleryScreen(
         onLoading(loading)
     }
 
+    val lastRefresh = remember { mutableIntStateOf(refresh) }
     LaunchedEffect(refresh) {
-        if (refresh > 0) {
+        if (refresh > 0 && refresh != lastRefresh.intValue) {
             viewModel.getImages()
         }
+        lastRefresh.intValue = refresh
     }
 
     LazyVerticalGrid(
