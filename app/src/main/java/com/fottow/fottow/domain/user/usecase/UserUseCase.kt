@@ -11,4 +11,7 @@ class UserUseCase(
 
     suspend fun getUser(): Result<User, Error> =
         userRepository.getUser()
+
+    suspend fun setFCMToken(token: String): Result<Boolean, Error> =
+        userRepository.setFCMToken(token)
 }

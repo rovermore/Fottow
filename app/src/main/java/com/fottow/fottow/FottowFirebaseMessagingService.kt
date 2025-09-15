@@ -1,18 +1,28 @@
 package com.fottow.fottow
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import android.content.pm.PackageManager
-import android.Manifest
+import com.fottow.fottow.domain.user.usecase.UserUseCase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class FottowFirebaseMessagingService : FirebaseMessagingService() {
+
+    private val userUseCase by inject<UserUseCase>()
+
+    private val serviceScope = CoroutineScope(Dispatchers.IO)
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         Log.d("FottowFCM", "Mensaje recibido de: ${remoteMessage.from}")
@@ -24,20 +34,20 @@ class FottowFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
         Log.d("FottowFCM", "Nuevo token FCM: $token")
-        // Aquí puedes enviar el token al backend si lo necesitas
+        serviceScope.launch {
+            userUseCase.setFCMToken(token)
+        }
     }
 
     private fun showNotification(title: String?, message: String?) {
         val channelId = "fcm_default_channel"
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Mensajes FCM",
-                NotificationManager.IMPORTANCE_DEFAULT
-            )
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(
+            channelId,
+            "Mensajes FCM",
+            NotificationManager.IMPORTANCE_DEFAULT
+        )
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(

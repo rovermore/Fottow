@@ -1,7 +1,5 @@
 package com.fottow.fottow.di
 
-import android.content.Context
-import androidx.work.WorkerParameters
 import com.fottow.fottow.FileResolver
 import com.fottow.fottow.data.base.APIErrorMapper
 import com.fottow.fottow.data.base.CallExecutor
@@ -14,7 +12,6 @@ import com.fottow.fottow.data.user.local.UserLocalDatasource
 import com.fottow.fottow.data.user.network.UserNetworkDatasource
 import com.fottow.fottow.data.user.UserRepositoryImpl
 import com.fottow.fottow.data.user.local.FottowDataStore
-import com.fottow.fottow.data.user.network.FCMNetworkDatasource
 import com.fottow.fottow.domain.user.repository.UserRepository
 import com.fottow.fottow.domain.user.usecase.LoginUseCase
 import com.fottow.fottow.domain.photo.repository.PhotoRepository
@@ -67,8 +64,6 @@ val appModule = module {
 
     factory { UserNetworkDatasource(get(), get())}
 
-    factory { FCMNetworkDatasource() }
-
     single { UserLocalDatasource(get()) }
 
     single { PhotoLocalDatasource(get()) }
@@ -77,6 +72,6 @@ val appModule = module {
 
     single<PhotoRepository> { PhotoRepositoryImpl(get(), get(), get(), get()) }
 
-    single<UserRepository> {UserRepositoryImpl(get(), get(), get(), get())}
+    single<UserRepository> {UserRepositoryImpl(get(), get(), get())}
 
 }

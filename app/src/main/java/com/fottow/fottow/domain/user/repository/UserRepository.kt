@@ -12,4 +12,6 @@ interface UserRepository {
     suspend fun logout(): Result<Boolean, Error>
     suspend fun getUser(): Result<User, Error>
     suspend fun isFirstInstall(): Result<Boolean, Error>
+    suspend fun setFCMToken(fcmToken: String): Result<Boolean, Error>
+    suspend fun getFCMToken(): Result<String, Error>
 }

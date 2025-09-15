@@ -2,7 +2,6 @@ package com.fottow.fottow.data.user
 
 import com.fottow.fottow.data.base.APIErrorMapper
 import com.fottow.fottow.data.user.local.UserLocalDatasource
-import com.fottow.fottow.data.user.network.FCMNetworkDatasource
 import com.fottow.fottow.data.user.network.UserNetworkDatasource
 import com.fottow.fottow.domain.base.Error
 import com.fottow.fottow.domain.base.Failure
@@ -17,23 +16,10 @@ import com.fottow.fottow.domain.user.repository.UserRepository
 class UserRepositoryImpl(
     private val userNetworkDatasource: UserNetworkDatasource,
     private val userLocalDatasource: UserLocalDatasource,
-    private val fcmNetworkDatasource: FCMNetworkDatasource,
     private val apiErrorMapper: APIErrorMapper
 ): UserRepository {
     override suspend fun logUser(user: String, password: String): Result<User, Error> {
-
-        val deleteResult = fcmNetworkDatasource.deleteFCMToken()
-        if (deleteResult is Failure) {
-            return Failure(Error.UncompletedOperation())
-        }
-
-        val tokenResult = fcmNetworkDatasource.getNewFCMToken()
-        if (tokenResult is Failure) {
-            return Failure(Error.UncompletedOperation())
-        }
-
-        val fcmToken = (tokenResult as Success).value
-
+        val fcmToken = userLocalDatasource.getFCMToken().getOrDefault("")
         return userNetworkDatasource.logUser(user, password, fcmToken)
             .map {
                 userLocalDatasource.setToken(it.token)
@@ -55,19 +41,7 @@ class UserRepositoryImpl(
         password: String,
         nickName: String
     ): Result<Boolean, Error> {
-
-        val deleteResult = fcmNetworkDatasource.deleteFCMToken()
-        if (deleteResult is Failure) {
-            return Failure(Error.UncompletedOperation())
-        }
-
-        val tokenResult = fcmNetworkDatasource.getNewFCMToken()
-        if (tokenResult is Failure) {
-            return Failure(Error.UncompletedOperation())
-        }
-
-        val fcmToken = (tokenResult as Success).value
-
+        val fcmToken = userLocalDatasource.getFCMToken().getOrDefault("")
         return userNetworkDatasource.userRegister(user, password, nickName, fcmToken)
             .map {
                 userLocalDatasource.setToken(it.token)
@@ -90,7 +64,6 @@ class UserRepositoryImpl(
     }
 
     override suspend fun logout(): Result<Boolean, Error> {
-        fcmNetworkDatasource.deleteFCMToken()
         return userNetworkDatasource.logout()
             .map {
                 userLocalDatasource.deleteToken()
@@ -114,5 +87,14 @@ class UserRepositoryImpl(
             userLocalDatasource.setFirstInstall()
             Success(true)
         }
+    }
+
+    override suspend fun setFCMToken(fcmToken: String): Result<Boolean, Error> {
+        userLocalDatasource.setFCMToken(fcmToken)
+        return Success(true)
+    }
+
+    override suspend fun getFCMToken(): Result<String, Error> {
+        return userLocalDatasource.getFCMToken()
     }
 }

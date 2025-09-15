@@ -18,6 +18,7 @@ class UserLocalDatasource(
         const val TOKEN_KEY = "TOKEN_KEY"
         const val USER_KEY = "USER_KEY"
         const val FIRST_INSTALL_KEY = "FIRST_INSTALL_KEY"
+        const val FCM_TOKEN_KEY = "FCM_TOKEN_KEY"
     }
 
     private val json = Json // singleton de kotlinx.serialization
@@ -26,7 +27,7 @@ class UserLocalDatasource(
         return when (val result = dataStore.read<String>(TOKEN_KEY)) {
             is Success -> {
                 val encodedToken = result.value
-                if (encodedToken.isNullOrEmpty()) {
+                if (encodedToken.isEmpty()) {
                     Failure(Error.UncompletedOperation("No token found"))
                 } else {
                     try {
@@ -85,5 +86,15 @@ class UserLocalDatasource(
 
     fun setFirstInstall() {
         dataStore.save(FIRST_INSTALL_KEY, false)
+    }
+
+    fun setFCMToken(token: String) {
+        dataStore.save(FCM_TOKEN_KEY, token)
+    }
+
+    fun getFCMToken(): Result<String, Error> {
+        return dataStore.read<String>(FCM_TOKEN_KEY).mapFailure {
+            Error.UncompletedOperation("No FCM token found")
+        }
     }
 }
