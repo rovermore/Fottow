@@ -10,16 +10,13 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -27,7 +24,6 @@ import com.fottow.fottow.presentation.navigation.navigateToImageViewer
 import com.fottow.fottow.presentation.theme.AppTheme
 import com.fottow.fottow.presentation.widgets.ErrorView
 import com.fottow.fottow.presentation.widgets.ImageCustom
-import com.fottow.fottow.presentation.widgets.Loader
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -45,7 +41,7 @@ fun GalleryScreen(
 
     val lifecycleOwner = LocalLifecycleOwner.current
 
-    DisposableEffect(lifecycleOwner) {
+    /*DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_START -> {
@@ -60,7 +56,7 @@ fun GalleryScreen(
         onDispose {
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
-    }
+    }*/
 
     LaunchedEffect(loading) {
         onLoading(loading)
